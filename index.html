@@ -530,58 +530,51 @@
     <script>
         // Situation bank - organized by tense category
         const situations = [
-            // PRESENT PERFECT vs PAST SIMPLE (the big one for Urdu speakers)
+            // PRESENT PERFECT vs PAST SIMPLE
             {
-                urdu: "آپ اپنی سہیلی کو بتانا چاہتی ہیں کہ آپ نے ابھی ابھی کھانا ختم کیا ہے",
-                context: "You just finished eating moments ago",
+                urdu: "میں نے ابھی ابھی کھانا ختم کیا ہے",
                 english: "I have just finished eating.",
                 tense: "Present Perfect",
                 explanation: "ابھی ابھی ہونے والے کام کے لیے present perfect استعمال ہوتا ہے",
                 category: "present-perfect"
             },
             {
-                urdu: "آپ بتانا چاہتی ہیں کہ آپ نے کل یہ فلم دیکھی",
-                context: "You watched a movie yesterday",
+                urdu: "میں نے کل یہ فلم دیکھی",
                 english: "I watched this movie yesterday.",
                 tense: "Past Simple",
                 explanation: "کل - مخصوص وقت ماضی میں، اس لیے past simple",
                 category: "past-simple"
             },
             {
-                urdu: "آپ بتانا چاہتی ہیں کہ آپ نے یہ فلم دیکھی ہے",
-                context: "You have seen this movie (at some point in your life)",
+                urdu: "میں نے یہ فلم دیکھی ہے",
                 english: "I have seen this movie.",
                 tense: "Present Perfect",
                 explanation: "زندگی میں کبھی - وقت نہیں بتایا، تجربہ بتایا، present perfect",
                 category: "present-perfect"
             },
             {
-                urdu: "آپ بتانا چاہتی ہیں کہ وہ پاکستان گئے ہیں",
-                context: "They have gone to Pakistan (they're still there)",
+                urdu: "وہ پاکستان گئے ہیں",
                 english: "They have gone to Pakistan.",
                 tense: "Present Perfect",
                 explanation: "ابھی تک وہاں ہیں - نتیجہ ابھی موجود ہے، present perfect",
                 category: "present-perfect"
             },
             {
-                urdu: "آپ بتانا چاہتی ہیں کہ وہ پچھلے سال پاکستان گئے تھے",
-                context: "They went to Pakistan last year",
+                urdu: "وہ پچھلے سال پاکستان گئے",
                 english: "They went to Pakistan last year.",
                 tense: "Past Simple",
                 explanation: "پچھلے سال - مخصوص وقت ماضی میں، past simple",
                 category: "past-simple"
             },
             {
-                urdu: "آپ پوچھنا چاہتی ہیں کہ کیا اس نے ناشتہ کیا ہے",
-                context: "Asking if someone has had breakfast (relevant now)",
+                urdu: "کیا تم نے ناشتہ کیا ہے؟",
                 english: "Have you had breakfast?",
                 tense: "Present Perfect",
                 explanation: "ابھی متعلق ہے - کیا ناشتہ کیا یا نہیں، present perfect",
                 category: "present-perfect"
             },
             {
-                urdu: "آپ پوچھنا چاہتی ہیں کہ اس نے کل ناشتہ کیا یا نہیں",
-                context: "Asking about breakfast yesterday specifically",
+                urdu: "کیا تم نے کل ناشتہ کیا؟",
                 english: "Did you have breakfast yesterday?",
                 tense: "Past Simple",
                 explanation: "کل کے بارے میں پوچھ رہی ہیں - مخصوص وقت، past simple",
@@ -589,15 +582,13 @@
             },
             {
                 urdu: "میں نے اپنا فون کھو دیا ہے",
-                context: "You lost your phone and still don't have it",
                 english: "I have lost my phone.",
                 tense: "Present Perfect",
                 explanation: "ابھی بھی نہیں ملا - نتیجہ ابھی موجود ہے، present perfect",
                 category: "present-perfect"
             },
             {
-                urdu: "میں نے پچھلے ہفتے اپنا فون کھویا تھا لیکن مل گیا",
-                context: "You lost your phone last week but found it",
+                urdu: "میں نے پچھلے ہفتے اپنا فون کھویا لیکن مل گیا",
                 english: "I lost my phone last week but I found it.",
                 tense: "Past Simple",
                 explanation: "ختم شدہ واقعہ ماضی میں، past simple",
@@ -606,16 +597,14 @@
 
             // PRESENT CONTINUOUS vs PRESENT SIMPLE
             {
-                urdu: "آپ بتانا چاہتی ہیں کہ آپ ابھی کھانا پکا رہی ہیں",
-                context: "You are cooking right now",
+                urdu: "میں ابھی کھانا پکا رہی ہوں",
                 english: "I am cooking right now.",
                 tense: "Present Continuous",
                 explanation: "ابھی اس وقت ہو رہا ہے - present continuous",
                 category: "present-continuous"
             },
             {
-                urdu: "آپ بتانا چاہتی ہیں کہ آپ روزانہ کھانا پکاتی ہیں",
-                context: "You cook every day (routine)",
+                urdu: "میں روزانہ کھانا پکاتی ہوں",
                 english: "I cook every day.",
                 tense: "Present Simple",
                 explanation: "روزانہ کا معمول - present simple",
@@ -623,7 +612,6 @@
             },
             {
                 urdu: "بچے باہر کھیل رہے ہیں",
-                context: "The children are playing outside right now",
                 english: "The children are playing outside.",
                 tense: "Present Continuous",
                 explanation: "ابھی ہو رہا ہے - present continuous",
@@ -631,23 +619,20 @@
             },
             {
                 urdu: "بچے ہر روز باہر کھیلتے ہیں",
-                context: "The children play outside every day",
                 english: "The children play outside every day.",
                 tense: "Present Simple",
                 explanation: "ہر روز - عادت، present simple",
                 category: "present-simple"
             },
             {
-                urdu: "وہ اس وقت ٹی وی دیکھ رہا ہے",
-                context: "He is watching TV at this moment",
+                urdu: "وہ ابھی ٹی وی دیکھ رہا ہے",
                 english: "He is watching TV right now.",
                 tense: "Present Continuous",
-                explanation: "اس وقت - ابھی ہو رہا ہے، present continuous",
+                explanation: "ابھی ہو رہا ہے، present continuous",
                 category: "present-continuous"
             },
             {
                 urdu: "وہ ہر شام ٹی وی دیکھتا ہے",
-                context: "He watches TV every evening (habit)",
                 english: "He watches TV every evening.",
                 tense: "Present Simple",
                 explanation: "ہر شام - عادت/معمول، present simple",
@@ -656,8 +641,7 @@
 
             // PRESENT PERFECT CONTINUOUS
             {
-                urdu: "آپ بتانا چاہتی ہیں کہ آپ دو گھنٹے سے پڑھ رہی ہیں",
-                context: "You started studying 2 hours ago and are still studying",
+                urdu: "میں دو گھنٹے سے پڑھ رہی ہوں",
                 english: "I have been studying for two hours.",
                 tense: "Present Perfect Continuous",
                 explanation: "دو گھنٹے سے جاری ہے اور ابھی بھی ہو رہا ہے - present perfect continuous",
@@ -665,7 +649,6 @@
             },
             {
                 urdu: "بارش صبح سے ہو رہی ہے",
-                context: "It started raining in the morning and is still raining",
                 english: "It has been raining since morning.",
                 tense: "Present Perfect Continuous",
                 explanation: "صبح سے شروع ہوئی اور ابھی تک جاری ہے - present perfect continuous",
@@ -673,15 +656,13 @@
             },
             {
                 urdu: "وہ تین سال سے یہاں کام کر رہی ہے",
-                context: "She started working here 3 years ago and still works here",
                 english: "She has been working here for three years.",
                 tense: "Present Perfect Continuous",
                 explanation: "تین سال سے جاری ہے - present perfect continuous",
                 category: "present-perfect-continuous"
             },
             {
-                urdu: "میں آدھے گھنٹے سے آپ کا انتظار کر رہی ہوں",
-                context: "You've been waiting for half an hour and still waiting",
+                urdu: "میں آدھے گھنٹے سے تمہارا انتظار کر رہی ہوں",
                 english: "I have been waiting for you for half an hour.",
                 tense: "Present Perfect Continuous",
                 explanation: "آدھے گھنٹے سے انتظار جاری ہے - present perfect continuous",
@@ -691,7 +672,6 @@
             // PAST CONTINUOUS
             {
                 urdu: "جب وہ آئی میں کھانا پکا رہی تھی",
-                context: "She arrived while you were in the middle of cooking",
                 english: "I was cooking when she arrived.",
                 tense: "Past Continuous + Past Simple",
                 explanation: "ایک کام جاری تھا (was cooking) جب دوسرا ہوا (arrived)",
@@ -699,7 +679,6 @@
             },
             {
                 urdu: "کل رات آٹھ بجے میں پڑھ رہی تھی",
-                context: "At 8 PM last night, you were studying",
                 english: "I was studying at 8 PM last night.",
                 tense: "Past Continuous",
                 explanation: "ماضی میں ایک خاص وقت پر کام جاری تھا - past continuous",
@@ -707,7 +686,6 @@
             },
             {
                 urdu: "جب فون آیا بچے سو رہے تھے",
-                context: "The phone rang while the children were sleeping",
                 english: "The children were sleeping when the phone rang.",
                 tense: "Past Continuous + Past Simple",
                 explanation: "سونا جاری تھا، فون کی گھنٹی بجی - past continuous + past simple",
@@ -716,50 +694,44 @@
 
             // FUTURE - WILL vs GOING TO
             {
-                urdu: "آپ نے ابھی فیصلہ کیا کہ آپ چائے بنائیں گی",
-                context: "You just decided this moment to make tea",
+                urdu: "میں چائے بناؤں گی",
                 english: "I will make some tea.",
                 tense: "Future Simple (will)",
                 explanation: "ابھی فیصلہ کیا - spontaneous decision، will استعمال ہوتا ہے",
                 category: "future"
             },
             {
-                urdu: "آپ کا پلان ہے کہ کل آپ ڈاکٹر کے پاس جائیں گی",
-                context: "You already have a plan to see the doctor tomorrow",
+                urdu: "میں کل ڈاکٹر کے پاس جانے والی ہوں",
                 english: "I am going to see the doctor tomorrow.",
                 tense: "Future (going to)",
                 explanation: "پہلے سے پلان ہے - going to استعمال ہوتا ہے",
                 category: "future"
             },
             {
-                urdu: "آسمان پر کالے بادل ہیں۔ بارش ہونے والی ہے",
-                context: "Dark clouds - rain is about to happen (evidence)",
+                urdu: "بارش ہونے والی ہے",
                 english: "It is going to rain.",
                 tense: "Future (going to)",
                 explanation: "نشانیاں موجود ہیں - going to",
                 category: "future"
             },
             {
-                urdu: "میں وعدہ کرتی ہوں کہ میں کل ضرور آؤں گی",
-                context: "Making a promise",
+                urdu: "میں کل ضرور آؤں گی",
                 english: "I will definitely come tomorrow.",
                 tense: "Future Simple (will)",
                 explanation: "وعدہ کرنا - will استعمال ہوتا ہے",
                 category: "future"
             },
             {
-                urdu: "ہم اگلے ہفتے لاہور جا رہے ہیں - ٹکٹ لے لی ہیں",
-                context: "Tickets already booked - fixed plan",
+                urdu: "ہم اگلے ہفتے لاہور جا رہے ہیں",
                 english: "We are going to Lahore next week.",
                 tense: "Present Continuous (for future)",
                 explanation: "پکا پروگرام، تیاری ہو چکی ہے - present continuous بھی future کے لیے استعمال ہوتا ہے",
                 category: "future"
             },
 
-            // More PRESENT PERFECT vs PAST SIMPLE (common mistakes)
+            // More PRESENT PERFECT vs PAST SIMPLE
             {
-                urdu: "میں نے آج صبح ناشتہ نہیں کیا",
-                context: "You didn't have breakfast this morning (today is not over)",
+                urdu: "میں نے آج ناشتہ نہیں کیا",
                 english: "I haven't had breakfast today.",
                 tense: "Present Perfect",
                 explanation: "آج ابھی ختم نہیں ہوا - present perfect",
@@ -767,15 +739,13 @@
             },
             {
                 urdu: "میں نے اس ہفتے تین فلمیں دیکھی ہیں",
-                context: "This week (week is not over)",
                 english: "I have watched three movies this week.",
                 tense: "Present Perfect",
                 explanation: "یہ ہفتہ ابھی جاری ہے - present perfect",
                 category: "present-perfect"
             },
             {
-                urdu: "پچھلے ہفتے میں نے تین فلمیں دیکھیں",
-                context: "Last week (finished time period)",
+                urdu: "میں نے پچھلے ہفتے تین فلمیں دیکھیں",
                 english: "I watched three movies last week.",
                 tense: "Past Simple",
                 explanation: "پچھلا ہفتہ ختم ہو گیا - past simple",
@@ -783,16 +753,14 @@
             },
             {
                 urdu: "کیا تم نے کبھی سشی کھائی ہے؟",
-                context: "Asking about life experience (ever)",
                 english: "Have you ever eaten sushi?",
                 tense: "Present Perfect",
                 explanation: "کبھی - زندگی کا تجربہ - present perfect",
                 category: "present-perfect"
             },
             {
-                urdu: "ہاں میں نے جاپان میں سشی کھائی تھی",
-                context: "Yes, when I was in Japan (specific past time)",
-                english: "Yes, I ate sushi when I was in Japan.",
+                urdu: "میں نے جاپان میں سشی کھائی",
+                english: "I ate sushi when I was in Japan.",
                 tense: "Past Simple",
                 explanation: "جاپان میں تھی - مخصوص وقت ماضی میں - past simple",
                 category: "past-simple"
