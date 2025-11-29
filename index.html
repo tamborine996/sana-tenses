@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Tenses Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .stats {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .card-container {
+            width: 100%;
+            max-width: 500px;
+            perspective: 1000px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card.revealed {
+            cursor: default;
+        }
+
+        .situation {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .urdu-text {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            direction: rtl;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .context {
+            font-size: 0.9rem;
+            color: #888;
+            font-style: italic;
+        }
+
+        .answer-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            display: none;
+        }
+
+        .answer-section.visible {
+            display: block;
+        }
+
+        .english-answer {
+            font-size: 1.3rem;
+            color: #2e7d32;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .tense-label {
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+            background: #f0f0f0;
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 0 auto;
+        }
+
+        .tense-label-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .explanation {
+            font-size: 0.9rem;
+            color: #555;
+            text-align: center;
+            direction: rtl;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .tap-hint {
+            text-align: center;
+            color: #999;
+            font-size: 0.85rem;
+            margin-top: 15px;
+        }
+
+        .buttons {
+            display: none;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .buttons.visible {
+            display: flex;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-wrong {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .btn-wrong:hover {
+            background: #ffcdd2;
+        }
+
+        .btn-right {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .btn-right:hover {
+            background: #c8e6c9;
+        }
+
+        .progress-bar {
+            width: 100%;
+            max-width: 500px;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #4caf50;
+            transition: width 0.3s;
+        }
+
+        .session-complete {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .session-complete h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .session-complete p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .btn-restart {
+            background: #333;
+            color: white;
+            padding: 15px 40px;
+        }
+
+        .btn-restart:hover {
+            background: #555;
+        }
+
+        .category-filter {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            max-width: 500px;
+        }
+
+        .filter-btn {
+            padding: 8px 14px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: #333;
+            color: white;
+            border-color: #333;
+        }
+
+        .filter-btn:hover:not(.active) {
+            border-color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Tenses Practice</h1>
+        <div class="stats">
+            <span id="current">1</span> / <span id="total">0</span>
+            &nbsp;|&nbsp;
+            Review: <span id="review-count">0</span>
+        </div>
+    </div>
+
+    <div class="category-filter" id="filters"></div>
+
+    <div class="card-container">
+        <div class="card" id="card">
+            <div class="situation">
+                <div class="urdu-text" id="urdu"></div>
+                <div class="context" id="context"></div>
+            </div>
+            <div class="answer-section" id="answer-section">
+                <div class="english-answer" id="english"></div>
+                <div class="tense-label-container">
+                    <span class="tense-label" id="tense-label"></span>
+                </div>
+                <div class="explanation" id="explanation"></div>
+            </div>
+            <div class="tap-hint" id="tap-hint">Tap to reveal answer</div>
+            <div class="buttons" id="buttons">
+                <button class="btn btn-wrong" id="btn-wrong">✗ Review Again</button>
+                <button class="btn btn-right" id="btn-right">✓ Got It</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress"></div>
+    </div>
+
+    <script>
+        // Situation bank - organized by tense category
+        const situations = [
+            // PRESENT PERFECT vs PAST SIMPLE (the big one for Urdu speakers)
+            {
+                urdu: "آپ اپنی سہیلی کو بتانا چاہتی ہیں کہ آپ نے ابھی ابھی کھانا ختم کیا ہے",
+                context: "You just finished eating moments ago",
+                english: "I have just finished eating.",
+                tense: "Present Perfect",
+                explanation: "ابھی ابھی ہونے والے کام کے لیے present perfect استعمال ہوتا ہے",
+                category: "present-perfect"
+            },
+            {
+                urdu: "آپ بتانا چاہتی ہیں کہ آپ نے کل یہ فلم دیکھی",
+                context: "You watched a movie yesterday",
+                english: "I watched this movie yesterday.",
+                tense: "Past Simple",
+                explanation: "کل - مخصوص وقت ماضی میں، اس لیے past simple",
+                category: "past-simple"
+            },
+            {
+                urdu: "آپ بتانا چاہتی ہیں کہ آپ نے یہ فلم دیکھی ہے",
+                context: "You have seen this movie (at some point in your life)",
+                english: "I have seen this movie.",
+                tense: "Present Perfect",
+                explanation: "زندگی میں کبھی - وقت نہیں بتایا، تجربہ بتایا، present perfect",
+                category: "present-perfect"
+            },
+            {
+                urdu: "آپ بتانا چاہتی ہیں کہ وہ پاکستان گئے ہیں",
+                context: "They have gone to Pakistan (they're still there)",
+                english: "They have gone to Pakistan.",
+                tense: "Present Perfect",
+                explanation: "ابھی تک وہاں ہیں - نتیجہ ابھی موجود ہے، present perfect",
+                category: "present-perfect"
+            },
+            {
+                urdu: "آپ بتانا چاہتی ہیں کہ وہ پچھلے سال پاکستان گئے تھے",
+                context: "They went to Pakistan last year",
+                english: "They went to Pakistan last year.",
+                tense: "Past Simple",
+                explanation: "پچھلے سال - مخصوص وقت ماضی میں، past simple",
+                category: "past-simple"
+            },
+            {
+                urdu: "آپ پوچھنا چاہتی ہیں کہ کیا اس نے ناشتہ کیا ہے",
+                context: "Asking if someone has had breakfast (relevant now)",
+                english: "Have you had breakfast?",
+                tense: "Present Perfect",
+                explanation: "ابھی متعلق ہے - کیا ناشتہ کیا یا نہیں، present perfect",
+                category: "present-perfect"
+            },
+            {
+                urdu: "آپ پوچھنا چاہتی ہیں کہ اس نے کل ناشتہ کیا یا نہیں",
+                context: "Asking about breakfast yesterday specifically",
+                english: "Did you have breakfast yesterday?",
+                tense: "Past Simple",
+                explanation: "کل کے بارے میں پوچھ رہی ہیں - مخصوص وقت، past simple",
+                category: "past-simple"
+            },
+            {
+                urdu: "میں نے اپنا فون کھو دیا ہے",
+                context: "You lost your phone and still don't have it",
+                english: "I have lost my phone.",
+                tense: "Present Perfect",
+                explanation: "ابھی بھی نہیں ملا - نتیجہ ابھی موجود ہے، present perfect",
+                category: "present-perfect"
+            },
+            {
+                urdu: "میں نے پچھلے ہفتے اپنا فون کھویا تھا لیکن مل گیا",
+                context: "You lost your phone last week but found it",
+                english: "I lost my phone last week but I found it.",
+                tense: "Past Simple",
+                explanation: "ختم شدہ واقعہ ماضی میں، past simple",
+                category: "past-simple"
+            },
+
+            // PRESENT CONTINUOUS vs PRESENT SIMPLE
+            {
+                urdu: "آپ بتانا چاہتی ہیں کہ آپ ابھی کھانا پکا رہی ہیں",
+                context: "You are cooking right now",
+                english: "I am cooking right now.",
+                tense: "Present Continuous",
+                explanation: "ابھی اس وقت ہو رہا ہے - present continuous",
+                category: "present-continuous"
+            },
+            {
+                urdu: "آپ بتانا چاہتی ہیں کہ آپ روزانہ کھانا پکاتی ہیں",
+                context: "You cook every day (routine)",
+                english: "I cook every day.",
+                tense: "Present Simple",
+                explanation: "روزانہ کا معمول - present simple",
+                category: "present-simple"
+            },
+            {
+                urdu: "بچے باہر کھیل رہے ہیں",
+                context: "The children are playing outside right now",
+                english: "The children are playing outside.",
+                tense: "Present Continuous",
+                explanation: "ابھی ہو رہا ہے - present continuous",
+                category: "present-continuous"
+            },
+            {
+                urdu: "بچے ہر روز باہر کھیلتے ہیں",
+                context: "The children play outside every day",
+                english: "The children play outside every day.",
+                tense: "Present Simple",
+                explanation: "ہر روز - عادت، present simple",
+                category: "present-simple"
+            },
+            {
+                urdu: "وہ اس وقت ٹی وی دیکھ رہا ہے",
+                context: "He is watching TV at this moment",
+                english: "He is watching TV right now.",
+                tense: "Present Continuous",
+                explanation: "اس وقت - ابھی ہو رہا ہے، present continuous",
+                category: "present-continuous"
+            },
+            {
+                urdu: "وہ ہر شام ٹی وی دیکھتا ہے",
+                context: "He watches TV every evening (habit)",
+                english: "He watches TV every evening.",
+                tense: "Present Simple",
+                explanation: "ہر شام - عادت/معمول، present simple",
+                category: "present-simple"
+            },
+
+            // PRESENT PERFECT CONTINUOUS
+            {
+                urdu: "آپ بتانا چاہتی ہیں کہ آپ دو گھنٹے سے پڑھ رہی ہیں",
+                context: "You started studying 2 hours ago and are still studying",
+                english: "I have been studying for two hours.",
+                tense: "Present Perfect Continuous",
+                explanation: "دو گھنٹے سے جاری ہے اور ابھی بھی ہو رہا ہے - present perfect continuous",
+                category: "present-perfect-continuous"
+            },
+            {
+                urdu: "بارش صبح سے ہو رہی ہے",
+                context: "It started raining in the morning and is still raining",
+                english: "It has been raining since morning.",
+                tense: "Present Perfect Continuous",
+                explanation: "صبح سے شروع ہوئی اور ابھی تک جاری ہے - present perfect continuous",
+                category: "present-perfect-continuous"
+            },
+            {
+                urdu: "وہ تین سال سے یہاں کام کر رہی ہے",
+                context: "She started working here 3 years ago and still works here",
+                english: "She has been working here for three years.",
+                tense: "Present Perfect Continuous",
+                explanation: "تین سال سے جاری ہے - present perfect continuous",
+                category: "present-perfect-continuous"
+            },
+            {
+                urdu: "میں آدھے گھنٹے سے آپ کا انتظار کر رہی ہوں",
+                context: "You've been waiting for half an hour and still waiting",
+                english: "I have been waiting for you for half an hour.",
+                tense: "Present Perfect Continuous",
+                explanation: "آدھے گھنٹے سے انتظار جاری ہے - present perfect continuous",
+                category: "present-perfect-continuous"
+            },
+
+            // PAST CONTINUOUS
+            {
+                urdu: "جب وہ آئی میں کھانا پکا رہی تھی",
+                context: "She arrived while you were in the middle of cooking",
+                english: "I was cooking when she arrived.",
+                tense: "Past Continuous + Past Simple",
+                explanation: "ایک کام جاری تھا (was cooking) جب دوسرا ہوا (arrived)",
+                category: "past-continuous"
+            },
+            {
+                urdu: "کل رات آٹھ بجے میں پڑھ رہی تھی",
+                context: "At 8 PM last night, you were studying",
+                english: "I was studying at 8 PM last night.",
+                tense: "Past Continuous",
+                explanation: "ماضی میں ایک خاص وقت پر کام جاری تھا - past continuous",
+                category: "past-continuous"
+            },
+            {
+                urdu: "جب فون آیا بچے سو رہے تھے",
+                context: "The phone rang while the children were sleeping",
+                english: "The children were sleeping when the phone rang.",
+                tense: "Past Continuous + Past Simple",
+                explanation: "سونا جاری تھا، فون کی گھنٹی بجی - past continuous + past simple",
+                category: "past-continuous"
+            },
+
+            // FUTURE - WILL vs GOING TO
+            {
+                urdu: "آپ نے ابھی فیصلہ کیا کہ آپ چائے بنائیں گی",
+                context: "You just decided this moment to make tea",
+                english: "I will make some tea.",
+                tense: "Future Simple (will)",
+                explanation: "ابھی فیصلہ کیا - spontaneous decision، will استعمال ہوتا ہے",
+                category: "future"
+            },
+            {
+                urdu: "آپ کا پلان ہے کہ کل آپ ڈاکٹر کے پاس جائیں گی",
+                context: "You already have a plan to see the doctor tomorrow",
+                english: "I am going to see the doctor tomorrow.",
+                tense: "Future (going to)",
+                explanation: "پہلے سے پلان ہے - going to استعمال ہوتا ہے",
+                category: "future"
+            },
+            {
+                urdu: "آسمان پر کالے بادل ہیں۔ بارش ہونے والی ہے",
+                context: "Dark clouds - rain is about to happen (evidence)",
+                english: "It is going to rain.",
+                tense: "Future (going to)",
+                explanation: "نشانیاں موجود ہیں - going to",
+                category: "future"
+            },
+            {
+                urdu: "میں وعدہ کرتی ہوں کہ میں کل ضرور آؤں گی",
+                context: "Making a promise",
+                english: "I will definitely come tomorrow.",
+                tense: "Future Simple (will)",
+                explanation: "وعدہ کرنا - will استعمال ہوتا ہے",
+                category: "future"
+            },
+            {
+                urdu: "ہم اگلے ہفتے لاہور جا رہے ہیں - ٹکٹ لے لی ہیں",
+                context: "Tickets already booked - fixed plan",
+                english: "We are going to Lahore next week.",
+                tense: "Present Continuous (for future)",
+                explanation: "پکا پروگرام، تیاری ہو چکی ہے - present continuous بھی future کے لیے استعمال ہوتا ہے",
+                category: "future"
+            },
+
+            // More PRESENT PERFECT vs PAST SIMPLE (common mistakes)
+            {
+                urdu: "میں نے آج صبح ناشتہ نہیں کیا",
+                context: "You didn't have breakfast this morning (today is not over)",
+                english: "I haven't had breakfast today.",
+                tense: "Present Perfect",
+                explanation: "آج ابھی ختم نہیں ہوا - present perfect",
+                category: "present-perfect"
+            },
+            {
+                urdu: "میں نے اس ہفتے تین فلمیں دیکھی ہیں",
+                context: "This week (week is not over)",
+                english: "I have watched three movies this week.",
+                tense: "Present Perfect",
+                explanation: "یہ ہفتہ ابھی جاری ہے - present perfect",
+                category: "present-perfect"
+            },
+            {
+                urdu: "پچھلے ہفتے میں نے تین فلمیں دیکھیں",
+                context: "Last week (finished time period)",
+                english: "I watched three movies last week.",
+                tense: "Past Simple",
+                explanation: "پچھلا ہفتہ ختم ہو گیا - past simple",
+                category: "past-simple"
+            },
+            {
+                urdu: "کیا تم نے کبھی سشی کھائی ہے؟",
+                context: "Asking about life experience (ever)",
+                english: "Have you ever eaten sushi?",
+                tense: "Present Perfect",
+                explanation: "کبھی - زندگی کا تجربہ - present perfect",
+                category: "present-perfect"
+            },
+            {
+                urdu: "ہاں میں نے جاپان میں سشی کھائی تھی",
+                context: "Yes, when I was in Japan (specific past time)",
+                english: "Yes, I ate sushi when I was in Japan.",
+                tense: "Past Simple",
+                explanation: "جاپان میں تھی - مخصوص وقت ماضی میں - past simple",
+                category: "past-simple"
+            },
+        ];
+
+        // State
+        let currentSituations = [...situations];
+        let currentIndex = 0;
+        let reviewPile = [];
+        let correctCount = 0;
+        let revealed = false;
+        let activeCategories = new Set(['all']);
+
+        // DOM elements
+        const card = document.getElementById('card');
+        const urduEl = document.getElementById('urdu');
+        const contextEl = document.getElementById('context');
+        const englishEl = document.getElementById('english');
+        const tenseLabelEl = document.getElementById('tense-label');
+        const explanationEl = document.getElementById('explanation');
+        const answerSection = document.getElementById('answer-section');
+        const tapHint = document.getElementById('tap-hint');
+        const buttons = document.getElementById('buttons');
+        const btnWrong = document.getElementById('btn-wrong');
+        const btnRight = document.getElementById('btn-right');
+        const currentEl = document.getElementById('current');
+        const totalEl = document.getElementById('total');
+        const reviewCountEl = document.getElementById('review-count');
+        const progressEl = document.getElementById('progress');
+        const filtersEl = document.getElementById('filters');
+
+        // Categories for filtering
+        const categories = {
+            'all': 'All',
+            'present-perfect': 'Present Perfect',
+            'past-simple': 'Past Simple',
+            'present-continuous': 'Present Continuous',
+            'present-simple': 'Present Simple',
+            'present-perfect-continuous': 'Perfect Continuous',
+            'past-continuous': 'Past Continuous',
+            'future': 'Future'
+        };
+
+        // Initialize filters
+        function initFilters() {
+            Object.entries(categories).forEach(([key, label]) => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn' + (key === 'all' ? ' active' : '');
+                btn.textContent = label;
+                btn.onclick = () => toggleCategory(key);
+                filtersEl.appendChild(btn);
+            });
+        }
+
+        function toggleCategory(category) {
+            const btn = [...filtersEl.children].find(b => b.textContent === categories[category]);
+
+            if (category === 'all') {
+                activeCategories = new Set(['all']);
+                [...filtersEl.children].forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            } else {
+                activeCategories.delete('all');
+                [...filtersEl.children][0].classList.remove('active');
+
+                if (activeCategories.has(category)) {
+                    activeCategories.delete(category);
+                    btn.classList.remove('active');
+                } else {
+                    activeCategories.add(category);
+                    btn.classList.add('active');
+                }
+
+                if (activeCategories.size === 0) {
+                    activeCategories.add('all');
+                    [...filtersEl.children][0].classList.add('active');
+                }
+            }
+
+            resetDeck();
+        }
+
+        function filterSituations() {
+            if (activeCategories.has('all')) {
+                return [...situations];
+            }
+            return situations.filter(s => activeCategories.has(s.category));
+        }
+
+        function shuffle(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function resetDeck() {
+            currentSituations = shuffle(filterSituations());
+            currentIndex = 0;
+            reviewPile = [];
+            correctCount = 0;
+            revealed = false;
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            if (currentIndex >= currentSituations.length) {
+                if (reviewPile.length > 0) {
+                    // Start review round
+                    currentSituations = shuffle(reviewPile);
+                    reviewPile = [];
+                    currentIndex = 0;
+                } else {
+                    showComplete();
+                    return;
+                }
+            }
+
+            const situation = currentSituations[currentIndex];
+            urduEl.textContent = situation.urdu;
+            contextEl.textContent = situation.context;
+            englishEl.textContent = situation.english;
+            tenseLabelEl.textContent = situation.tense;
+            explanationEl.textContent = situation.explanation;
+
+            answerSection.classList.remove('visible');
+            buttons.classList.remove('visible');
+            tapHint.style.display = 'block';
+            card.classList.remove('revealed');
+            revealed = false;
+
+            currentEl.textContent = currentIndex + 1;
+            totalEl.textContent = currentSituations.length;
+            reviewCountEl.textContent = reviewPile.length;
+
+            const progress = (correctCount / situations.length) * 100;
+            progressEl.style.width = progress + '%';
+        }
+
+        function revealAnswer() {
+            if (revealed) return;
+            revealed = true;
+            card.classList.add('revealed');
+            answerSection.classList.add('visible');
+            buttons.classList.add('visible');
+            tapHint.style.display = 'none';
+        }
+
+        function markWrong() {
+            reviewPile.push(currentSituations[currentIndex]);
+            currentIndex++;
+            updateDisplay();
+        }
+
+        function markRight() {
+            correctCount++;
+            currentIndex++;
+            updateDisplay();
+        }
+
+        function showComplete() {
+            card.innerHTML = `
+                <div class="session-complete">
+                    <h2>Session Complete!</h2>
+                    <p>You practiced ${situations.length} situations.</p>
+                    <button class="btn btn-restart" onclick="resetDeck(); location.reload();">Practice Again</button>
+                </div>
+            `;
+        }
+
+        // Event listeners
+        card.addEventListener('click', (e) => {
+            if (!revealed && !e.target.classList.contains('btn')) {
+                revealAnswer();
+            }
+        });
+
+        btnWrong.addEventListener('click', (e) => {
+            e.stopPropagation();
+            markWrong();
+        });
+
+        btnRight.addEventListener('click', (e) => {
+            e.stopPropagation();
+            markRight();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (!revealed) {
+                    revealAnswer();
+                }
+            } else if (e.code === 'ArrowLeft' && revealed) {
+                markWrong();
+            } else if (e.code === 'ArrowRight' && revealed) {
+                markRight();
+            }
+        });
+
+        // Initialize
+        initFilters();
+        resetDeck();
+    </script>
+</body>
+</html>
