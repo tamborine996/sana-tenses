@@ -80,12 +80,6 @@
             margin-bottom: 15px;
         }
 
-        .context {
-            font-size: 0.9rem;
-            color: #888;
-            font-style: italic;
-        }
-
         .answer-section {
             margin-top: 20px;
             padding-top: 20px;
@@ -262,7 +256,6 @@
         <div class="card" id="card">
             <div class="situation">
                 <div class="urdu-text" id="urdu"></div>
-                <div class="context" id="context"></div>
             </div>
             <div class="answer-section" id="answer-section">
                 <div class="english-answer" id="english"></div>
@@ -566,7 +559,6 @@
         // DOM elements
         const card = document.getElementById('card');
         const urduEl = document.getElementById('urdu');
-        const contextEl = document.getElementById('context');
         const englishEl = document.getElementById('english');
         const tenseLabelEl = document.getElementById('tense-label');
         const explanationEl = document.getElementById('explanation');
@@ -672,7 +664,6 @@
 
             const situation = currentSituations[currentIndex];
             urduEl.textContent = situation.urdu;
-            contextEl.textContent = situation.context;
             englishEl.textContent = situation.english;
             tenseLabelEl.textContent = situation.tense;
             explanationEl.textContent = situation.explanation;
