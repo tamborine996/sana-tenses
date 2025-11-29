@@ -1,0 +1,153 @@
+{
+  "present-simple": {
+    "id": "present-simple",
+    "name": "Present Simple",
+    "urduName": "حال مطلق",
+    "formula": "Subject + verb (s/es for he/she/it)",
+    "negativeFormula": "Subject + do/does + not + verb",
+    "questionFormula": "Do/Does + subject + verb?",
+    "signalWords": ["every day", "always", "usually", "often", "sometimes", "never", "on Mondays"],
+    "explanation": "یہ tense عادات، روزمرہ کے کام، اور ہمیشہ سچی باتوں کے لیے استعمال ہوتا ہے۔ جب کوئی کام بار بار ہوتا ہے یا کوئی چیز ہمیشہ سچ ہے، تو ہم present simple استعمال کرتے ہیں۔",
+    "whenToUse": [
+      "روزانہ کی عادات کے لیے (میں روز چائے پیتی ہوں)",
+      "ہمیشہ سچی باتوں کے لیے (سورج مشرق سے نکلتا ہے)",
+      "شیڈول کے لیے (ٹرین 5 بجے آتی ہے)"
+    ],
+    "examples": [
+      { "urdu": "میں روزانہ کھانا پکاتی ہوں", "english": "I cook every day." },
+      { "urdu": "وہ ہر شام ٹی وی دیکھتا ہے", "english": "He watches TV every evening." }
+    ]
+  },
+  "present-continuous": {
+    "id": "present-continuous",
+    "name": "Present Continuous",
+    "urduName": "حال جاری",
+    "formula": "Subject + am/is/are + verb-ing",
+    "negativeFormula": "Subject + am/is/are + not + verb-ing",
+    "questionFormula": "Am/Is/Are + subject + verb-ing?",
+    "signalWords": ["now", "right now", "at the moment", "currently", "today", "this week"],
+    "explanation": "یہ tense اس وقت استعمال ہوتا ہے جب کوئی کام ابھی اسی وقت ہو رہا ہو۔ اگر آپ کسی سے پوچھیں 'تم کیا کر رہی ہو؟' تو جواب present continuous میں ہوگا۔",
+    "whenToUse": [
+      "جب کام ابھی ہو رہا ہو (میں ابھی کھانا بنا رہی ہوں)",
+      "عارضی حالات کے لیے (وہ آج کل لاہور میں رہ رہے ہیں)",
+      "مستقبل کے پکے پروگرام کے لیے (ہم کل جا رہے ہیں)"
+    ],
+    "examples": [
+      { "urdu": "میں ابھی کھانا پکا رہی ہوں", "english": "I am cooking right now." },
+      { "urdu": "بچے باہر کھیل رہے ہیں", "english": "The children are playing outside." }
+    ]
+  },
+  "past-simple": {
+    "id": "past-simple",
+    "name": "Past Simple",
+    "urduName": "ماضی مطلق",
+    "formula": "Subject + verb (past form / V2)",
+    "negativeFormula": "Subject + did + not + verb",
+    "questionFormula": "Did + subject + verb?",
+    "signalWords": ["yesterday", "last week", "last year", "ago", "in 2020", "when I was young"],
+    "explanation": "یہ tense ان کاموں کے لیے استعمال ہوتا ہے جو ماضی میں ختم ہو چکے ہیں۔ جب آپ کہتے ہیں 'کل'، 'پچھلے ہفتے'، '2020 میں' - یہ سب past simple ہے کیونکہ وقت مخصوص ہے اور کام ختم ہو چکا ہے۔",
+    "whenToUse": [
+      "ماضی کے ختم شدہ کام (میں نے کل فلم دیکھی)",
+      "مخصوص وقت کے ساتھ (وہ پچھلے سال پاکستان گئے)",
+      "کہانیاں سنانے کے لیے (وہ آئی اور بیٹھ گئی)"
+    ],
+    "examples": [
+      { "urdu": "میں نے کل یہ فلم دیکھی", "english": "I watched this movie yesterday." },
+      { "urdu": "وہ پچھلے سال پاکستان گئے", "english": "They went to Pakistan last year." }
+    ]
+  },
+  "past-continuous": {
+    "id": "past-continuous",
+    "name": "Past Continuous",
+    "urduName": "ماضی جاری",
+    "formula": "Subject + was/were + verb-ing",
+    "negativeFormula": "Subject + was/were + not + verb-ing",
+    "questionFormula": "Was/Were + subject + verb-ing?",
+    "signalWords": ["while", "when", "as", "at 8 PM yesterday", "all day yesterday"],
+    "explanation": "یہ tense اس وقت استعمال ہوتا ہے جب ماضی میں کوئی کام جاری تھا۔ خاص طور پر جب ایک کام ہو رہا تھا اور دوسرا کام ہو گیا۔ 'جب وہ آئی میں کھانا بنا رہی تھی' - کھانا بنانا جاری تھا، آنا ہو گیا۔",
+    "whenToUse": [
+      "جب ماضی میں کام جاری تھا (کل رات 8 بجے میں پڑھ رہی تھی)",
+      "جب ایک کام جاری تھا اور دوسرا ہوا (جب فون آیا میں سو رہی تھی)"
+    ],
+    "examples": [
+      { "urdu": "جب وہ آئی میں کھانا پکا رہی تھی", "english": "I was cooking when she arrived." },
+      { "urdu": "کل رات آٹھ بجے میں پڑھ رہی تھی", "english": "I was studying at 8 PM last night." }
+    ]
+  },
+  "present-perfect": {
+    "id": "present-perfect",
+    "name": "Present Perfect",
+    "urduName": "حال تام",
+    "formula": "Subject + have/has + past participle (V3)",
+    "negativeFormula": "Subject + have/has + not + past participle",
+    "questionFormula": "Have/Has + subject + past participle?",
+    "signalWords": ["just", "already", "yet", "ever", "never", "recently", "so far", "today", "this week"],
+    "explanation": "یہ سب سے مشکل tense ہے! یہ ان کاموں کے لیے استعمال ہوتا ہے جو ماضی میں ہوئے لیکن ان کا اثر ابھی تک ہے، یا جب ہم وقت نہیں بتاتے۔ 'میں نے فون کھو دیا ہے' - یعنی ابھی بھی نہیں ملا۔",
+    "whenToUse": [
+      "جب نتیجہ ابھی اہم ہو (میں نے چابی کھو دی ہے - ابھی بھی نہیں ملی)",
+      "زندگی کے تجربات (کیا تم نے کبھی سشی کھائی ہے؟)",
+      "ابھی تک جاری وقت (میں نے آج ناشتہ نہیں کیا)",
+      "ابھی ابھی ہونے والے کام (میں نے ابھی کھانا ختم کیا ہے)"
+    ],
+    "examples": [
+      { "urdu": "میں نے اپنا فون کھو دیا ہے", "english": "I have lost my phone." },
+      { "urdu": "کیا تم نے ناشتہ کیا ہے؟", "english": "Have you had breakfast?" }
+    ]
+  },
+  "present-perfect-continuous": {
+    "id": "present-perfect-continuous",
+    "name": "Present Perfect Continuous",
+    "urduName": "حال تام جاری",
+    "formula": "Subject + have/has + been + verb-ing",
+    "negativeFormula": "Subject + have/has + not + been + verb-ing",
+    "questionFormula": "Have/Has + subject + been + verb-ing?",
+    "signalWords": ["for", "since", "all day", "all morning", "lately", "recently"],
+    "explanation": "یہ tense اس وقت استعمال ہوتا ہے جب کوئی کام ماضی میں شروع ہوا اور ابھی تک جاری ہے۔ 'سے' کا استعمال ہوتا ہے - 'میں دو گھنٹے سے پڑھ رہی ہوں' یعنی دو گھنٹے پہلے شروع کیا اور ابھی بھی پڑھ رہی ہوں۔",
+    "whenToUse": [
+      "جب کام ماضی سے ابھی تک جاری ہو (میں صبح سے کام کر رہی ہوں)",
+      "جب مدت بتانی ہو (وہ تین سال سے یہاں رہ رہے ہیں)"
+    ],
+    "examples": [
+      { "urdu": "میں دو گھنٹے سے پڑھ رہی ہوں", "english": "I have been studying for two hours." },
+      { "urdu": "بارش صبح سے ہو رہی ہے", "english": "It has been raining since morning." }
+    ]
+  },
+  "past-perfect": {
+    "id": "past-perfect",
+    "name": "Past Perfect",
+    "urduName": "ماضی بعید",
+    "formula": "Subject + had + past participle (V3)",
+    "negativeFormula": "Subject + had + not + past participle",
+    "questionFormula": "Had + subject + past participle?",
+    "signalWords": ["before", "after", "by the time", "already", "just", "never", "until"],
+    "explanation": "یہ tense اس وقت استعمال ہوتا ہے جب ماضی میں دو کام ہوئے ہوں اور ایک پہلے ہوا ہو۔ 'جب میں سٹیشن پہنچی، ٹرین جا چکی تھی' - ٹرین کا جانا پہلے ہوا۔",
+    "whenToUse": [
+      "جب ماضی میں ایک کام دوسرے سے پہلے ہوا ہو",
+      "reported speech میں past tense کو اور پیچھے لے جانے کے لیے"
+    ],
+    "examples": [
+      { "urdu": "جب میں پہنچی، وہ جا چکا تھا", "english": "When I arrived, he had already left." },
+      { "urdu": "میں نے وہ فلم پہلے دیکھی تھی", "english": "I had seen that movie before." }
+    ]
+  },
+  "future-simple": {
+    "id": "future-simple",
+    "name": "Future Simple",
+    "urduName": "مستقبل",
+    "formula": "Subject + will + verb OR Subject + am/is/are + going to + verb",
+    "negativeFormula": "Subject + will not (won't) + verb",
+    "questionFormula": "Will + subject + verb?",
+    "signalWords": ["tomorrow", "next week", "soon", "later", "in the future"],
+    "explanation": "مستقبل کے لیے دو طریقے ہیں: 'will' فوری فیصلوں اور وعدوں کے لیے، 'going to' پہلے سے بنے پلان کے لیے۔ 'میں چائے بناؤں گی' (ابھی فیصلہ کیا) بمقابلہ 'میں کل ڈاکٹر کے پاس جانے والی ہوں' (پہلے سے پلان ہے)۔",
+    "whenToUse": [
+      "will: فوری فیصلے (ٹھیک ہے، میں مدد کروں گی)",
+      "will: وعدے (میں کل ضرور آؤں گی)",
+      "going to: پہلے سے پلان (میں کل ڈاکٹر کے پاس جانے والی ہوں)",
+      "going to: نشانیوں سے پیشگوئی (بادل ہیں، بارش ہونے والی ہے)"
+    ],
+    "examples": [
+      { "urdu": "میں چائے بناؤں گی", "english": "I will make some tea." },
+      { "urdu": "میں کل ڈاکٹر کے پاس جانے والی ہوں", "english": "I am going to see the doctor tomorrow." }
+    ]
+  }
+}

@@ -10,7 +10,8 @@
       "Bash(gh repo create:*)",
       "Bash(gh api:*)",
       "Bash(git push)",
-      "Skill(frontend-design:frontend-design)"
+      "Skill(frontend-design:frontend-design)",
+      "Bash(dir:*)"
     ],
     "deny": [],
     "ask": []
