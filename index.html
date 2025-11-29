@@ -232,6 +232,21 @@
             opacity: 1;
             transform: translateY(0);
             pointer-events: auto;
+            cursor: pointer;
+        }
+
+        .hide-hint {
+            font-size: 0.75rem;
+            color: var(--ink-light);
+            opacity: 0.5;
+            text-align: center;
+            margin-top: 12px;
+            font-style: italic;
+            transition: opacity 0.2s ease;
+        }
+
+        .answer-section:hover .hide-hint {
+            opacity: 0.8;
         }
 
         .english-answer {
@@ -498,6 +513,7 @@
                     <span class="tense-label" id="tense-label"></span>
                 </div>
                 <div class="explanation" id="explanation"></div>
+                <div class="hide-hint">tap to hide</div>
             </div>
             <div class="tap-hint" id="tap-hint">tap to reveal</div>
             <div class="buttons" id="buttons">
@@ -926,6 +942,15 @@
             tapHint.style.display = 'none';
         }
 
+        function hideAnswer() {
+            if (!revealed) return;
+            revealed = false;
+            card.classList.remove('revealed');
+            answerSection.classList.remove('visible');
+            buttons.classList.remove('visible');
+            tapHint.style.display = 'block';
+        }
+
         function markWrong() {
             reviewPile.push(currentSituations[currentIndex]);
             currentIndex++;
@@ -964,6 +989,12 @@
         btnRight.addEventListener('click', (e) => {
             e.stopPropagation();
             markRight();
+        });
+
+        answerSection.addEventListener('click', (e) => {
+            if (e.target.classList.contains('btn')) return;
+            e.stopPropagation();
+            hideAnswer();
         });
 
         // Keyboard shortcuts
