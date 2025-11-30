@@ -812,41 +812,244 @@ h3 { font-size: 1.1rem; }
 }
 
 /* ========================================
-   Responsive
+   Responsive - Mobile First Cards
    ======================================== */
 
-@media (max-width: 600px) {
-  .tense-table th:nth-child(3),
-  .tense-table td:nth-child(3) {
+@media (max-width: 700px) {
+  /* Hide table structure on mobile */
+  .tense-table,
+  .tense-table thead,
+  .tense-table tbody,
+  .tense-table tr,
+  .tense-table th,
+  .tense-table td {
+    display: block;
+  }
+
+  .tense-table thead {
     display: none;
   }
 
-  .tense-table th,
-  .tense-table td {
-    padding: 10px 12px;
+  .tense-table {
+    border: none;
+    background: transparent;
   }
 
+  .tense-table tr {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: 12px;
+    padding: 16px;
+  }
+
+  .tense-table tr:hover td {
+    background: transparent;
+  }
+
+  .tense-table td {
+    border: none;
+    padding: 4px 0;
+    text-align: left;
+  }
+
+  /* Tense name - prominent */
+  .tense-table td:first-child {
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 8px;
+  }
+
+  .tense-name-cell {
+    justify-content: space-between;
+  }
+
+  .tense-name {
+    font-size: 1.05rem;
+  }
+
+  /* Level & Description inline */
+  .tense-table td:nth-child(2),
+  .tense-table td:nth-child(3) {
+    display: inline-block;
+    width: auto;
+  }
+
+  .tense-table td:nth-child(2)::after {
+    content: ' · ';
+    color: var(--color-ink-muted);
+  }
+
+  .level-name {
+    font-weight: 500;
+    color: var(--color-teal);
+  }
+
+  .pack-description {
+    color: var(--color-ink-muted);
+  }
+
+  /* Count */
+  .tense-table td:nth-child(4) {
+    display: none;
+  }
+
+  /* Progress */
+  .tense-table td:nth-child(5) {
+    margin-top: 8px;
+  }
+
+  .progress-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .progress-text {
+    margin-bottom: 0;
+    min-width: 40px;
+  }
+
+  .progress-bar {
+    flex: 1;
+  }
+
+  /* Actions - full width */
+  .tense-table td:last-child {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .action-cell {
+    text-align: left;
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-practice {
+    flex: 1;
+    text-align: center;
+  }
+
+  .btn-review-pack {
+    margin-left: 0;
+  }
+
+  /* Practice header */
+  .practice-header {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .practice-title {
+    order: -1;
+    width: 100%;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .btn-back {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+
+  .practice-counter {
+    font-size: 0.85rem;
+  }
+
+  /* Flashcard */
   .flashcard {
-    padding: 32px 20px;
-    min-height: 280px;
+    padding: 28px 20px;
+    min-height: 260px;
   }
 
   .urdu-text {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
   }
 
   .english-answer {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
   }
 
+  /* Recently completed */
   .recent-pack-card {
     width: 140px;
+    padding: 12px;
+  }
+
+  .recent-pack-name {
+    font-size: 0.85rem;
+  }
+
+  /* Category header */
+  .category-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  /* Review all button */
+  .review-all-btn {
+    padding: 14px 16px;
+    font-size: 0.95rem;
+  }
+
+  /* Modal */
+  .modal-content {
+    max-height: 90vh;
+    margin: 10px;
+  }
+
+  .modal-body {
+    padding: 16px;
+  }
+
+  .formula-box {
+    font-size: 0.8rem;
+    padding: 12px;
   }
 }
 
 @media (max-width: 400px) {
-  .tense-table th:nth-child(4),
-  .tense-table td:nth-child(4) {
+  .app-header {
+    padding: 16px 0;
+  }
+
+  .app-title {
+    font-size: 1.3rem;
+  }
+
+  .home-section {
+    padding: 16px 0;
+  }
+
+  .tense-table tr {
+    padding: 14px;
+  }
+
+  .urdu-text {
+    font-size: 1.2rem;
+  }
+
+  .flashcard {
+    padding: 24px 16px;
+    min-height: 240px;
+  }
+
+  .card-actions {
+    flex-direction: column;
+  }
+
+  .btn-wrong,
+  .btn-right {
+    padding: 12px 16px;
+  }
+}
+
+/* Extra small - ensure nothing breaks */
+@media (max-width: 350px) {
+  .tense-table td:nth-child(2)::after {
     display: none;
   }
 
