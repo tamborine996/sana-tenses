@@ -1,2 +1,4 @@
-# Supabase config with real credentials (use supabase-config.example.js as template)
-supabase-config.js
+# Supabase local files
+supabase/.temp/
+supabase/.branches/
+supabase/config.toml

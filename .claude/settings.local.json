@@ -11,7 +11,20 @@
       "Bash(gh api:*)",
       "Bash(git push)",
       "Skill(frontend-design:frontend-design)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "mcp__chrome-devtools__new_page",
+      "mcp__chrome-devtools__resize_page",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__take_snapshot",
+      "mcp__chrome-devtools__evaluate_script",
+      "mcp__chrome-devtools__emulate",
+      "mcp__chrome-devtools__navigate_page",
+      "Bash(timeout /t 5 /nobreak)",
+      "Bash(npx supabase projects list)",
+      "Bash(echo $SUPABASE_ACCESS_TOKEN)",
+      "Bash(export SUPABASE_ACCESS_TOKEN=sbp_ccae1d64e9edb859eb3bd191549d6aa56c086571)",
+      "Bash(npx supabase:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []
