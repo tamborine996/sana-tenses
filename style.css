@@ -121,8 +121,7 @@ h3 { font-size: 1.1rem; }
    ======================================== */
 
 .app-header {
-  padding: 20px 0;
-  text-align: center;
+  padding: 16px 0;
   border-bottom: 1px solid var(--color-border);
   background: var(--color-surface);
   position: sticky;
@@ -130,15 +129,107 @@ h3 { font-size: 1.1rem; }
   z-index: 100;
 }
 
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.header-left {
+  text-align: left;
+}
+
 .app-title {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: var(--color-teal-deep);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .app-subtitle {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--color-ink-muted);
+}
+
+/* Auth Section */
+.auth-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-google-sign-in {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: white;
+  color: #444;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-google-sign-in:hover {
+  background: #f8f8f8;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-google-sign-in svg {
+  flex-shrink: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-email {
+  font-size: 0.8rem;
+  color: var(--color-ink-secondary);
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-sign-out {
+  padding: 6px 12px;
+  background: none;
+  color: var(--color-ink-muted);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-sign-out:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-ink);
+}
+
+.sync-indicator {
+  font-size: 0.7rem;
+  color: var(--color-sage);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sync-indicator.syncing {
+  color: var(--color-amber);
+}
+
+.sync-indicator.error {
+  color: var(--color-rose);
 }
 
 /* ========================================

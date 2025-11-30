@@ -14,15 +14,27 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
 </head>
 <body>
   <div class="app-container">
 
     <!-- Header -->
     <header class="app-header">
-      <h1 class="app-title">Tenses Practice</h1>
-      <p class="app-subtitle">Learn English tenses through Urdu</p>
+      <div class="header-content">
+        <div class="header-left">
+          <h1 class="app-title">Tenses Practice</h1>
+          <p class="app-subtitle">Learn English tenses through Urdu</p>
+        </div>
+        <div id="auth-section" class="auth-section">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
     </header>
+
 
     <!-- Home Screen -->
     <main id="home-screen" class="screen active">
