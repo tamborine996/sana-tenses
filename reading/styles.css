@@ -6,6 +6,7 @@
   --green: #1f5b4d;
   --green-soft: #dce9e3;
   --coral: #d5654d;
+  --coral-text: #a04432;
   --coral-soft: #f8e5df;
   --gold: #c8993c;
   --line: #d9d4c7;
@@ -163,7 +164,7 @@ button:focus-visible {
 
 .eyebrow {
   margin: 0 0 10px;
-  color: var(--coral);
+  color: var(--coral-text);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.15em;

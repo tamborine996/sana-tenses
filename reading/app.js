@@ -37,7 +37,7 @@ function renderArticle(article) {
   const standfirst = make('p', 'standfirst', article.standfirst);
   intro.append(meta, eyebrow, title, standfirst);
 
-  const routineNote = make('aside', 'routine-note');
+  const routineNote = make('div', 'routine-note');
   routineNote.append(
     make('span', 'routine-number', '1'),
     make('p', '', 'Read at a comfortable pace. There is no timer and nothing to submit.')
@@ -76,7 +76,9 @@ function renderArticle(article) {
     make('h2', '', 'Five questions for conversation'),
     make('p', 'questions-intro', 'Answer out loud with your tutor. Take your time; complete sentences matter more than speed.')
   );
-  questionHeader.querySelector('h2').id = 'questions-heading';
+  const questionHeading = questionHeader.querySelector('h2');
+  questionHeading.id = 'questions-heading';
+  questionHeading.tabIndex = -1;
 
   const list = make('ol', 'question-list');
   article.questions.forEach((question) => {
@@ -103,6 +105,7 @@ function renderArticle(article) {
     questions.hidden = false;
     revealButton.setAttribute('aria-expanded', 'true');
     revealButton.textContent = 'Questions ready';
+    questionHeading.focus({ preventScroll: true });
     revealButton.disabled = true;
     requestAnimationFrame(() => questions.scrollIntoView({ behavior: 'smooth', block: 'start' }));
   });
