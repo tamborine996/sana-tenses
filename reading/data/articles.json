@@ -1,0 +1,55 @@
+[
+  {
+    "id": "2026-08-16-shark-photographs",
+    "date": "2026-08-16",
+    "category": "People & nature",
+    "readingTime": "4 minute read",
+    "title": "The danger behind the perfect shark picture",
+    "standfirst": "Some travellers are getting dangerously close to wild sharks for dramatic social-media footage. Scientists say the risk affects both people and the animals.",
+    "source": {
+      "name": "BBC News",
+      "originalTitle": "The influencers getting bitten while chasing the perfect shark shot",
+      "url": "https://www.bbc.co.uk/news/articles/c5yvrn7rpqpo",
+      "published": "2026-08-16T00:04:00+01:00"
+    },
+    "paragraphs": [
+      "In April, Brazilian lawyer and social-media personality Tayane Dalazen joined a shark-diving trip off the coast of Brazil. She noticed that many sharks were swimming near the surface. Later, she learnt that the tour organisers had been feeding them so that they would come closer to the tourists.",
+      "During the dive, a nurse shark more than two metres long bit Dalazen on the thigh and held her underwater for several seconds. Although the pain was intense, she stayed calm because she knew that fighting the animal could make the situation worse. The shark eventually released her, and she escaped with deep cuts. Video of the incident was later watched tens of millions of times. Dalazen says she did not touch or provoke the shark, but she accepts that she was too close.",
+      "Shark bites remain extremely rare. Worldwide, the yearly number of unprovoked bites has stayed at roughly 70 for about three decades. However, researchers have noticed a rise in incidents involving people who are trying to film sharks. At least three social-media influencers have been bitten in less than a year. One study of wildlife-swimming trips found that influencers and photographers were the visitors most likely to ignore safety advice.",
+      "Scientists say getting too close can harm sharks as well as humans. A shark may bite defensively when a person enters its space. Approaching or touching it can also increase its stress hormones, which may weaken its immune system and affect its ability to reproduce. Some content creators argue that close-up videos educate the public and encourage shark conservation. They also say viewers must take responsibility for their own choices.",
+      "Several shark experts disagree. They say that touching or riding a wild shark is harassment, not conservation, and does not produce the scientific evidence needed to protect shark populations. Meanwhile, shark tourism is becoming more popular; one travel website lists more than 140 shark experiences in the Maldives alone, and some promise visitors an unforgettable selfie. The experts’ message is simple: a dramatic picture may earn attention online, but getting it could have serious consequences."
+    ],
+    "questions": [
+      {
+        "label": "Start easy",
+        "tense": "Tell the main story",
+        "prompt": "In your own words, what happens in the text?",
+        "support": "Begin with: “The text is about…”"
+      },
+      {
+        "label": "Look back",
+        "tense": "Past simple + past perfect",
+        "prompt": "What had the tour organisers done before the shark bit Tayane, and what did she do during the attack?",
+        "support": "Try using “had been feeding”, “bit”, “stayed” and “escaped”."
+      },
+      {
+        "label": "Think about now",
+        "tense": "Present simple",
+        "prompt": "Why do experts believe social media changes how people behave around sharks today? Do you agree with them?",
+        "support": "Try using present-tense verbs such as “encourages”, “shows” or “makes”."
+      },
+      {
+        "label": "Connect ideas",
+        "tense": "Past + present",
+        "prompt": "Think of another situation in which someone took a risk for a photograph or video. What happened, and what lesson does it give us now?",
+        "support": "Tell the past event first, then explain the lesson in the present tense."
+      },
+      {
+        "label": "Look ahead",
+        "tense": "Future language",
+        "prompt": "If shark-tour companies and influencers continue in the same way, what do you think will happen in the future? What should they change?",
+        "support": "Try using “will”, “might” and “should”."
+      }
+    ]
+  }
+]
