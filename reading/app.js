@@ -107,7 +107,11 @@ function renderArticle(article) {
     revealButton.textContent = 'Questions ready';
     questionHeading.focus({ preventScroll: true });
     revealButton.disabled = true;
-    requestAnimationFrame(() => questions.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    requestAnimationFrame(() => questions.scrollIntoView({
+      behavior: reduceMotion ? 'auto' : 'smooth',
+      block: 'start'
+    }));
   });
 
   articleElement.append(intro, routineNote, body, source, finish, questions);
@@ -117,6 +121,8 @@ function renderArticle(article) {
 function renderError() {
   app.replaceChildren();
   const card = make('section', 'error-card');
+  card.setAttribute('role', 'status');
+  card.setAttribute('aria-live', 'polite');
   card.append(
     make('p', 'eyebrow', 'Reading unavailable'),
     make('h1', '', 'Today’s article could not be opened.'),
