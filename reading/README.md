@@ -9,15 +9,16 @@ A phone-first, tutor-led reading routine inside the existing Sana Tenses GitHub 
 - Credit and link the original BBC source clearly.
 - Prefer accessible non-geopolitical topics while the routine is being established.
 - Hide the questions until the reader deliberately finishes the article.
-- Include exactly five verbal questions and no answer boxes, scores or automated marking.
-- Question 1 must ask what happens in the text.
-- Questions 2–5 should become gradually more thoughtful and practise past, present and future language.
+- Provide an Easy/Challenge switch with exactly ten verbal questions in each set.
+- Easy question 1 must ask what happens in the text; the rest should check direct understanding and build confidence.
+- Challenge questions should move beyond recall and practise past, present and future language.
+- Include no answer boxes, scores or automated marking.
 
 ## Add an article
 
 1. Add the newest item to `data/articles.json` with a unique date-based ID.
 2. Keep the adapted body between 300 and 500 words.
-3. Add exactly five questions following the product contract above.
+3. Add exactly ten Easy and ten Challenge questions following the product contract above.
 4. Run:
 
 ```bash

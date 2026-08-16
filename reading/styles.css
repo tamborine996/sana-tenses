@@ -328,6 +328,43 @@ h2 {
   line-height: 1.45;
 }
 
+.question-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  margin: 0 0 24px;
+  padding: 5px;
+  border: 1px solid rgba(84, 100, 95, 0.2);
+  border-radius: 999px;
+  background: rgba(84, 100, 95, 0.08);
+}
+
+.question-tab {
+  min-height: 48px;
+  padding: 11px 14px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  background: transparent;
+  font: 600 0.88rem/1.2 var(--sans);
+  cursor: pointer;
+  transition: color 140ms ease, background 140ms ease, box-shadow 140ms ease;
+}
+
+.question-tab:hover {
+  color: var(--green);
+}
+
+.question-tab[aria-selected="true"] {
+  color: white;
+  background: var(--green);
+  box-shadow: 0 2px 8px rgba(31, 91, 77, 0.22);
+}
+
+.question-set[hidden] {
+  display: none;
+}
+
 .question-list {
   display: grid;
   gap: 14px;

@@ -33,19 +33,26 @@ for (const article of articles) {
   const articleWords = article.paragraphs.join(' ').trim().split(/\s+/).length;
   assert.ok(articleWords >= 300 && articleWords <= 500, `${article.id}: article must be 300–500 words; found ${articleWords}`);
 
-  assert.ok(Array.isArray(article.questions), `${article.id}: questions must be an array`);
-  assert.equal(article.questions.length, 5, `${article.id}: exactly five questions are required`);
-  article.questions.forEach((question, index) => {
-    for (const field of ['label', 'tense', 'prompt', 'support']) {
-      requiredText(question[field], `${article.id}.questions[${index}].${field}`);
-    }
-  });
-  assert.match(article.questions[0].prompt.toLowerCase(), /what happens/, `${article.id}: question one must ask what happens in the text`);
+  assert.ok(article.questionSets && typeof article.questionSets === 'object', `${article.id}: questionSets are required`);
+  assert.deepEqual(Object.keys(article.questionSets).sort(), ['challenge', 'easy'], `${article.id}: use exactly Easy and Challenge question sets`);
 
-  const questionLanguage = article.questions.slice(1).map((question) => `${question.prompt} ${question.support}`.toLowerCase()).join(' ');
-  assert.match(questionLanguage, /\b(had|did|was|were|happened|bit|stayed|escaped)\b/, `${article.id}: prompts/support must practise past language`);
-  assert.match(questionLanguage, /\b(today|now|does|do|is|are|changes|encourages|shows|makes)\b/, `${article.id}: prompts/support must practise present language`);
-  assert.match(questionLanguage, /\b(future|will|might|should|going to)\b/, `${article.id}: prompts/support must practise future language`);
+  for (const setName of ['easy', 'challenge']) {
+    const questionSet = article.questionSets[setName];
+    assert.ok(Array.isArray(questionSet), `${article.id}.${setName}: questions must be an array`);
+    assert.equal(questionSet.length, 10, `${article.id}.${setName}: exactly ten questions are required`);
+    questionSet.forEach((question, index) => {
+      for (const field of ['label', 'tense', 'prompt', 'support']) {
+        requiredText(question[field], `${article.id}.questionSets.${setName}[${index}].${field}`);
+      }
+    });
+  }
+
+  assert.match(article.questionSets.easy[0].prompt.toLowerCase(), /what happens/, `${article.id}: the first Easy question must ask what happens in the text`);
+
+  const challengeLanguage = article.questionSets.challenge.map((question) => `${question.prompt} ${question.support}`.toLowerCase()).join(' ');
+  assert.match(challengeLanguage, /\b(had|did|was|were|happened|bit|stayed|escaped)\b/, `${article.id}: Challenge prompts/support must practise past language`);
+  assert.match(challengeLanguage, /\b(today|now|does|do|is|are|changes|encourages|shows|policy)\b/, `${article.id}: Challenge prompts/support must practise present language`);
+  assert.match(challengeLanguage, /\b(future|will|might|should|going to)\b/, `${article.id}: Challenge prompts/support must practise future language`);
 
   assert.ok(article.source && typeof article.source === 'object', `${article.id}: source details are required`);
   assert.equal(article.source.name, 'BBC News', `${article.id}: BBC News attribution is required`);
@@ -55,4 +62,4 @@ for (const article of articles) {
   assert.equal(article.source.published.slice(0, 10), article.date, `${article.id}: article date must match the credited source publication date`);
 }
 
-console.log(`Validated ${articles.length} article(s): schema, dates, 300–500 word length, five questions, prompt-level tense coverage, BBC attribution and no-scoring UI contract all pass.`);
+console.log(`Validated ${articles.length} article(s): schema, dates, 300–500 word length, ten Easy plus ten Challenge questions, prompt-level tense coverage, BBC attribution and no-scoring UI contract all pass.`);

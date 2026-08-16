@@ -19,37 +19,131 @@
       "Scientists say getting too close can harm sharks as well as humans. A shark may bite defensively when a person enters its space. Approaching or touching it can also increase its stress hormones, which may weaken its immune system and affect its ability to reproduce. Some content creators argue that close-up videos educate the public and encourage shark conservation. They also say viewers must take responsibility for their own choices.",
       "Several shark experts disagree. They say that touching or riding a wild shark is harassment, not conservation, and does not produce the scientific evidence needed to protect shark populations. Meanwhile, shark tourism is becoming more popular; one travel website lists more than 140 shark experiences in the Maldives alone, and some promise visitors an unforgettable selfie. The experts’ message is simple: a dramatic picture may earn attention online, but getting it could have serious consequences."
     ],
-    "questions": [
-      {
-        "label": "Start easy",
-        "tense": "Tell the main story",
-        "prompt": "In your own words, what happens in the text?",
-        "support": "Begin with: “The text is about…”"
-      },
-      {
-        "label": "Look back",
-        "tense": "Past simple + past perfect",
-        "prompt": "What had the tour organisers done before the shark bit Tayane, and what did she do during the attack?",
-        "support": "Try using “had been feeding”, “bit”, “stayed” and “escaped”."
-      },
-      {
-        "label": "Think about now",
-        "tense": "Present simple",
-        "prompt": "Why do experts believe social media changes how people behave around sharks today? Do you agree with them?",
-        "support": "Try using present-tense verbs such as “encourages”, “shows” or “makes”."
-      },
-      {
-        "label": "Connect ideas",
-        "tense": "Past + present",
-        "prompt": "Think of another situation in which someone took a risk for a photograph or video. What happened, and what lesson does it give us now?",
-        "support": "Tell the past event first, then explain the lesson in the present tense."
-      },
-      {
-        "label": "Look ahead",
-        "tense": "Future language",
-        "prompt": "If shark-tour companies and influencers continue in the same way, what do you think will happen in the future? What should they change?",
-        "support": "Try using “will”, “might” and “should”."
-      }
-    ]
+    "questionSets": {
+      "easy": [
+        {
+          "label": "Start here",
+          "tense": "Main idea",
+          "prompt": "In your own words, what happens in the text?",
+          "support": "Begin with: “The text is about…”"
+        },
+        {
+          "label": "Find the facts",
+          "tense": "Past simple",
+          "prompt": "Where was Tayane Dalazen, and what kind of trip had she joined?",
+          "support": "Begin with: “She was off the coast of Brazil…”"
+        },
+        {
+          "label": "Before the bite",
+          "tense": "Past perfect",
+          "prompt": "What had the tour organisers been doing, and why had they done it?",
+          "support": "Try using “had been feeding” and “so that”."
+        },
+        {
+          "label": "During the bite",
+          "tense": "Past simple",
+          "prompt": "What did the nurse shark do, and how did Tayane react?",
+          "support": "Try using “bit”, “held” and “stayed calm”."
+        },
+        {
+          "label": "Afterwards",
+          "tense": "Past simple",
+          "prompt": "How did the incident end, and what injuries did Tayane have?",
+          "support": "Answer in two complete past-tense sentences."
+        },
+        {
+          "label": "Understand a number",
+          "tense": "Present perfect",
+          "prompt": "About how many unprovoked shark bites happen each year, and for how long has that number stayed similar?",
+          "support": "Try using “has stayed” in your answer."
+        },
+        {
+          "label": "Spot the change",
+          "tense": "Present perfect",
+          "prompt": "What rise have researchers noticed in recent years?",
+          "support": "Begin with: “Researchers have noticed…”"
+        },
+        {
+          "label": "Cause and effect",
+          "tense": "Present simple",
+          "prompt": "How can getting too close to a shark harm the animal?",
+          "support": "Give at least two effects mentioned in the text."
+        },
+        {
+          "label": "Two viewpoints",
+          "tense": "Present simple",
+          "prompt": "What do some content creators say their close-up videos achieve?",
+          "support": "Try using “They argue that…”"
+        },
+        {
+          "label": "Final message",
+          "tense": "Present simple",
+          "prompt": "What warning do the shark experts give at the end of the text?",
+          "support": "Explain the warning without copying the final sentence."
+        }
+      ],
+      "challenge": [
+        {
+          "label": "Explain a cause",
+          "tense": "Past perfect + past simple",
+          "prompt": "How might the organisers’ earlier decision to feed the sharks have changed the danger during Tayane’s dive?",
+          "support": "Explain what they had done first, then what happened later."
+        },
+        {
+          "label": "Imagine differently",
+          "tense": "Third conditional",
+          "prompt": "If Tayane had panicked and fought the shark, what might have happened?",
+          "support": "Try: “If she had…, the shark might have…”"
+        },
+        {
+          "label": "Interpret evidence",
+          "tense": "Present simple",
+          "prompt": "Shark bites are very rare, yet filming-related incidents are rising. How can both statements be true?",
+          "support": "Use “overall”, “however” and “among people who…”."
+        },
+        {
+          "label": "Judge an argument",
+          "tense": "Present simple",
+          "prompt": "Content creators say close-up videos support conservation, while scientists say they can be harassment. Which argument is stronger, and why?",
+          "support": "Give your judgement and support it with evidence from the text."
+        },
+        {
+          "label": "Responsibility",
+          "tense": "Present modals",
+          "prompt": "Who is most responsible for risky wildlife content: tourists, tour companies, social-media platforms or viewers?",
+          "support": "Use “should”, “must” or “ought to” to explain your choice."
+        },
+        {
+          "label": "Make a rule",
+          "tense": "Present + conditional",
+          "prompt": "What rules should shark-tour companies follow, and what should happen if a visitor ignores them?",
+          "support": "Try: “Companies should… If a visitor…, then…”"
+        },
+        {
+          "label": "Connect experience",
+          "tense": "Past + present",
+          "prompt": "Think of another situation in which someone took a risk for a photograph or video. What happened, and what lesson does it give us now?",
+          "support": "Tell the past event first, then explain the present lesson."
+        },
+        {
+          "label": "Change perspective",
+          "tense": "Past + present",
+          "prompt": "Imagine you manage the tour company. What would you say the company did wrong, and what safety policy do you have now?",
+          "support": "Move clearly from the past mistake to the present policy."
+        },
+        {
+          "label": "Look ahead",
+          "tense": "Future language",
+          "prompt": "If shark tourism keeps growing in the same way, what will or might happen to tourists and sharks in the future?",
+          "support": "Use both “will” and “might” if you can."
+        },
+        {
+          "label": "Bring it together",
+          "tense": "Past + present + future",
+          "prompt": "Using the incident as evidence, explain what people have learnt, what they should do now and what could change in the future.",
+          "support": "Give one past point, one present recommendation and one future prediction."
+        }
+      ]
+    }
   }
 ]
