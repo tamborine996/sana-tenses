@@ -348,7 +348,7 @@ h2 {
   background: transparent;
   font: 600 0.88rem/1.2 var(--sans);
   cursor: pointer;
-  transition: color 140ms ease, background 140ms ease, box-shadow 140ms ease;
+  transition: box-shadow 140ms ease;
 }
 
 .question-tab:hover {
