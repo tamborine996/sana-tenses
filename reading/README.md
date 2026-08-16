@@ -19,11 +19,14 @@ A phone-first, tutor-led reading routine inside the existing Sana Tenses GitHub 
 1. Add the newest item to `data/articles.json` with a unique date-based ID.
 2. Keep the adapted body between 300 and 500 words.
 3. Add exactly ten Easy and ten Challenge questions following the product contract above.
-4. Run:
+4. Install the test dependencies once, then run the content and phone-browser checks:
 
 ```bash
-node reading/tests/validate.mjs
+npm install --prefix reading
+npm test --prefix reading
 ```
+
+The suite validates the article/question contract and exercises the Easy/Challenge keyboard flow at 320px, 360px and 412px.
 
 The page automatically displays the item with the newest `date`.
 

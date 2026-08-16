@@ -18,6 +18,7 @@ assert.doesNotMatch(appJs, /make\(['"](?:input|textarea|select|form)['"]/i, 'The
 assert.doesNotMatch(appJs, /\b(score|correct answer|automated marking)\b/i, 'The rendered reader must not introduce scoring or marking');
 assert.match(appJs, /prefers-reduced-motion/, 'Question reveal must respect reduced-motion preferences');
 assert.match(appJs, /questionHeading\.focus/, 'Question reveal must move focus to its heading');
+assert.match(appJs, /panel\.tabIndex = 0/, 'Question tab panels must be keyboard-focusable');
 
 for (const article of articles) {
   assert.match(article.id, /^\d{4}-\d{2}-\d{2}-[a-z0-9-]+$/, `${article.id}: invalid id`);
@@ -46,6 +47,26 @@ for (const article of articles) {
       }
     });
   }
+
+  const allQuestions = [...article.questionSets.easy, ...article.questionSets.challenge];
+  const normalizedPrompts = allQuestions.map((question) => question.prompt
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim());
+  assert.equal(new Set(normalizedPrompts).size, normalizedPrompts.length, `${article.id}: question prompts must be unique across both sets`);
+
+  const easyTenseLabels = article.questionSets.easy.map((question) => question.tense.toLowerCase()).join(' ');
+  assert.match(easyTenseLabels, /past simple/, `${article.id}: Easy set must include past simple`);
+  assert.match(easyTenseLabels, /past perfect/, `${article.id}: Easy set must include past perfect`);
+  assert.match(easyTenseLabels, /present simple/, `${article.id}: Easy set must include present simple`);
+  assert.match(easyTenseLabels, /present perfect/, `${article.id}: Easy set must include present perfect`);
+
+  const challengeTenseLabels = article.questionSets.challenge.map((question) => question.tense.toLowerCase()).join(' ');
+  assert.match(challengeTenseLabels, /past/, `${article.id}: Challenge set must include past language`);
+  assert.match(challengeTenseLabels, /present/, `${article.id}: Challenge set must include present language`);
+  assert.match(challengeTenseLabels, /conditional/, `${article.id}: Challenge set must include conditional language`);
+  assert.match(challengeTenseLabels, /future/, `${article.id}: Challenge set must include future language`);
 
   assert.match(article.questionSets.easy[0].prompt.toLowerCase(), /what happens/, `${article.id}: the first Easy question must ask what happens in the text`);
 

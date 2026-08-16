@@ -30,8 +30,8 @@
         {
           "label": "Find the facts",
           "tense": "Past simple",
-          "prompt": "Where was Tayane Dalazen, and what kind of trip had she joined?",
-          "support": "Begin with: “She was off the coast of Brazil…”"
+          "prompt": "Where was Tayane Dalazen, and what kind of trip did she join?",
+          "support": "Try: “She was off the coast of Brazil, and she joined…”"
         },
         {
           "label": "Before the bite",

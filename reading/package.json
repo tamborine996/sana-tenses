@@ -1,0 +1,13 @@
+{
+  "name": "english-reading-practice",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "npm run test:content && npm run test:browser",
+    "test:content": "node tests/validate.mjs",
+    "test:browser": "playwright test --config tests/playwright.config.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1"
+  }
+}

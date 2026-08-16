@@ -21,6 +21,7 @@ function makeQuestionPanel(setName, questions, isActive) {
   panel.id = `${setName}-questions`;
   panel.setAttribute('role', 'tabpanel');
   panel.setAttribute('aria-labelledby', `${setName}-tab`);
+  panel.tabIndex = 0;
   panel.hidden = !isActive;
 
   const list = make('ol', 'question-list');
