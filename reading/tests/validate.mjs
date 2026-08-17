@@ -19,6 +19,8 @@ assert.doesNotMatch(appJs, /\b(score|correct answer|automated marking)\b/i, 'The
 assert.match(appJs, /prefers-reduced-motion/, 'Question reveal must respect reduced-motion preferences');
 assert.match(appJs, /questionHeading\.focus/, 'Question reveal must move focus to its heading');
 assert.match(appJs, /panel\.tabIndex = 0/, 'Question tab panels must be keyboard-focusable');
+assert.match(appJs, /panel\.lang = language/, 'Translated story panels must expose their language');
+assert.match(appJs, /panel\.dir = language === 'ur' \? 'rtl' : 'ltr'/, 'Urdu must use semantic right-to-left direction');
 
 for (const article of articles) {
   assert.match(article.id, /^\d{4}-\d{2}-\d{2}-[a-z0-9-]+$/, `${article.id}: invalid id`);
@@ -30,6 +32,19 @@ for (const article of articles) {
   requiredText(article.standfirst, `${article.id}.standfirst`);
   assert.ok(Array.isArray(article.paragraphs) && article.paragraphs.length >= 4, `${article.id}: use at least four paragraphs`);
   article.paragraphs.forEach((paragraph, index) => requiredText(paragraph, `${article.id}.paragraphs[${index}]`));
+
+  assert.ok(article.translations?.ur, `${article.id}: Urdu translation is required`);
+  requiredText(article.translations.ur.title, `${article.id}.translations.ur.title`);
+  requiredText(article.translations.ur.standfirst, `${article.id}.translations.ur.standfirst`);
+  assert.ok(Array.isArray(article.translations.ur.paragraphs), `${article.id}: Urdu paragraphs must be an array`);
+  assert.equal(article.translations.ur.paragraphs.length, article.paragraphs.length, `${article.id}: English and Urdu paragraph counts must align`);
+  const urduText = [
+    article.translations.ur.title,
+    article.translations.ur.standfirst,
+    ...article.translations.ur.paragraphs
+  ].join(' ');
+  assert.match(urduText, /[\u0600-\u06ff]/, `${article.id}: Urdu translation must contain Urdu script`);
+  article.translations.ur.paragraphs.forEach((paragraph, index) => requiredText(paragraph, `${article.id}.translations.ur.paragraphs[${index}]`));
 
   const articleWords = article.paragraphs.join(' ').trim().split(/\s+/).length;
   assert.ok(articleWords >= 300 && articleWords <= 500, `${article.id}: article must be 300–500 words; found ${articleWords}`);

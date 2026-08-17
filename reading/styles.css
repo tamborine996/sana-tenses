@@ -54,9 +54,13 @@ button:focus-visible {
 }
 
 .site-header {
+  display: flex;
   width: min(100% - 32px, 760px);
   margin: 0 auto;
   padding: 18px 0 14px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
 }
 
 .brand {
@@ -101,6 +105,32 @@ button:focus-visible {
   font-style: italic;
 }
 
+.book-link {
+  display: grid;
+  min-width: 190px;
+  padding: 9px 13px;
+  border: 1px solid rgba(31, 91, 77, 0.25);
+  border-radius: 14px 14px 5px 14px;
+  color: var(--ink);
+  background: rgba(255, 253, 248, 0.72);
+  text-decoration: none;
+}
+
+.book-link span {
+  color: var(--coral-text);
+  font-size: 0.63rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.book-link strong {
+  margin-top: 2px;
+  font-family: var(--display);
+  font-size: 0.93rem;
+  font-weight: 600;
+}
+
 .reader-shell {
   width: min(100% - 24px, 760px);
   margin: 0 auto;
@@ -132,6 +162,77 @@ button:focus-visible {
 .error-card {
   min-height: 240px;
   padding: 48px 40px;
+}
+
+.article-top {
+  padding: 24px 44px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.article-top .article-meta {
+  margin-bottom: 17px;
+}
+
+.language-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.language-label,
+.language-help {
+  margin: 0;
+}
+
+.language-label {
+  color: var(--ink);
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.language-help {
+  margin-top: 2px;
+  color: var(--ink-soft);
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+.language-switch {
+  display: grid;
+  min-width: 190px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid rgba(84, 100, 95, 0.2);
+  border-radius: 999px;
+  background: rgba(84, 100, 95, 0.08);
+}
+
+.language-tab {
+  min-height: 40px;
+  padding: 8px 15px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  background: transparent;
+  font: 600 0.82rem/1.2 var(--sans);
+  cursor: pointer;
+}
+
+.language-tab[data-language="ur"] {
+  font-family: "Noto Nastaliq Urdu", serif;
+  font-size: 0.95rem;
+}
+
+.language-tab[aria-selected="true"] {
+  color: white;
+  background: var(--green);
+  box-shadow: 0 2px 8px rgba(31, 91, 77, 0.22);
+}
+
+.story-panel[hidden] {
+  display: none;
 }
 
 .article-header {
@@ -248,6 +349,44 @@ h2 {
   font-size: 3.6em;
   font-weight: 600;
   line-height: 0.75;
+}
+
+.story-panel[lang="ur"] .article-header,
+.story-panel[lang="ur"] .article-body {
+  font-family: "Noto Nastaliq Urdu", "Noto Naskh Arabic", serif;
+  text-align: right;
+}
+
+.story-panel[lang="ur"] h1 {
+  font-family: "Noto Nastaliq Urdu", "Noto Naskh Arabic", serif;
+  font-size: clamp(2.15rem, 6vw, 3.6rem);
+  line-height: 1.65;
+  letter-spacing: 0;
+}
+
+.story-panel[lang="ur"] .standfirst {
+  font-family: "Noto Nastaliq Urdu", "Noto Naskh Arabic", serif;
+  line-height: 2;
+}
+
+.story-panel[lang="ur"] .routine-note {
+  border-right: 2px solid var(--gold);
+  border-left: 0;
+  background: linear-gradient(270deg, rgba(200, 153, 60, 0.1), transparent);
+}
+
+.story-panel[lang="ur"] .routine-note p,
+.story-panel[lang="ur"] .article-body {
+  line-height: 2.18;
+}
+
+.story-panel[lang="ur"] .opening-paragraph::first-letter {
+  float: none;
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
 }
 
 .source-note {
@@ -471,6 +610,17 @@ h2 {
   .site-header {
     width: min(100% - 28px, 760px);
     padding-top: 13px;
+    gap: 8px;
+  }
+
+  .brand {
+    min-width: 0;
+  }
+
+  .brand strong {
+    max-width: 120px;
+    font-size: 0.78rem;
+    line-height: 1.1;
   }
 
   .brand-mark {
@@ -479,7 +629,21 @@ h2 {
   }
 
   .brand small {
-    font-size: 0.84rem;
+    display: none;
+  }
+
+  .book-link {
+    min-width: 0;
+    padding: 8px 10px;
+  }
+
+  .book-link span {
+    display: none;
+  }
+
+  .book-link strong {
+    margin: 0;
+    font-size: 0.82rem;
   }
 
   .reader-shell {
@@ -499,6 +663,32 @@ h2 {
     padding: 28px 22px 24px;
   }
 
+  .article-top {
+    padding: 18px 22px;
+  }
+
+  .article-top .article-meta {
+    margin-bottom: 14px;
+  }
+
+  .language-header {
+    align-items: end;
+    gap: 10px;
+  }
+
+  .language-help {
+    max-width: 145px;
+  }
+
+  .language-switch {
+    min-width: 154px;
+  }
+
+  .language-tab {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
   .article-meta {
     margin-bottom: 24px;
   }
@@ -509,6 +699,16 @@ h2 {
 
   .standfirst {
     font-size: 1.25rem;
+  }
+
+  .story-panel[lang="ur"] h1 {
+    font-size: 2.15rem;
+    line-height: 1.7;
+  }
+
+  .story-panel[lang="ur"] .article-body {
+    font-size: 1.18rem;
+    line-height: 2.15;
   }
 
   .routine-note {

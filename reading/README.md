@@ -2,12 +2,19 @@
 
 A phone-first, tutor-led reading routine inside the existing Sana Tenses GitHub Pages site.
 
-## Product contract
+## Included reading experiences
+
+- `/reading/` — the current short English-practice article, with a complete English/Urdu story switch and Easy/Challenge verbal questions.
+- `/reading/books/wizard-of-oz/` — the complete public-domain *Wonderful Wizard of Oz*, one chapter at a time, with saved progress and original W. W. Denslow chapter art.
+
+## Short-article product contract
 
 - Show one calm current reading at a time.
 - Use a faithful 300–500 word adaptation, not a word-for-word republication.
-- Credit and link the original BBC source clearly.
-- Prefer accessible non-geopolitical topics while the routine is being established.
+- Credit and link the original source clearly.
+- Keep English canonical. When an Urdu translation is supplied, align its title, standfirst and body paragraphs with the English story.
+- Give each language its own semantic `lang` and `dir`; Urdu is `lang="ur" dir="rtl"` and uses the Noto Nastaliq Urdu reading font.
+- Switching language must not reset or hide an already-open question session.
 - Hide the questions until the reader deliberately finishes the article.
 - Provide an Easy/Challenge switch with exactly ten verbal questions in each set.
 - Easy question 1 must ask what happens in the text; the rest should check direct understanding and build confidence.
@@ -17,18 +24,31 @@ A phone-first, tutor-led reading routine inside the existing Sana Tenses GitHub 
 ## Add an article
 
 1. Add the newest item to `data/articles.json` with a unique date-based ID.
-2. Keep the adapted body between 300 and 500 words.
-3. Add exactly ten Easy and ten Challenge questions following the product contract above.
-4. Install the test dependencies once, then run the content and phone-browser checks:
+2. Keep the adapted English body between 300 and 500 words.
+3. If adding Urdu, place `title`, `standfirst` and a paragraph-aligned `paragraphs` array under `translations.ur`.
+4. Add exactly ten Easy and ten Challenge questions following the product contract above.
+5. Run the full content, browser and accessibility suite.
+
+The page automatically displays the item with the newest `date`.
+
+## Re-import The Wonderful Wizard of Oz
+
+The reader is generated deterministically from Project Gutenberg eBook 43936:
+
+```bash
+python reading/books/wizard-of-oz/scripts/import_gutenberg.py
+```
+
+The importer verifies the 24-chapter structure, downloads the original cover and chapter art, records the source SHA-256, and writes `books/wizard-of-oz/data/book.json`. See `books/wizard-of-oz/SOURCE.md` for provenance and rights notes.
+
+## Test
 
 ```bash
 npm install --prefix reading
 npm test --prefix reading
 ```
 
-The suite validates the article/question contract and exercises the Easy/Challenge keyboard flow at 320px, 360px and 412px.
-
-The page automatically displays the item with the newest `date`.
+The suite validates both data contracts, exercises language and chapter navigation, checks saved progress, verifies no horizontal overflow at 320px, 360px and 412px, and runs automated WCAG A/AA checks on English, Urdu, questions and the chapter book.
 
 ## Local preview
 
@@ -38,4 +58,7 @@ From the repository root:
 python3 -m http.server 4173
 ```
 
-Then open `http://localhost:4173/reading/`.
+Then open:
+
+- `http://localhost:4173/reading/`
+- `http://localhost:4173/reading/books/wizard-of-oz/`

@@ -43,13 +43,44 @@ function makeQuestionPanel(setName, questions, isActive) {
   return panel;
 }
 
+function makeStoryPanel(article, language, content, isActive) {
+  const panel = make('div', 'story-panel');
+  panel.id = `${language}-story`;
+  panel.setAttribute('role', 'tabpanel');
+  panel.setAttribute('aria-labelledby', `${language}-language-tab`);
+  panel.lang = language;
+  panel.dir = language === 'ur' ? 'rtl' : 'ltr';
+  panel.hidden = !isActive;
+
+  const intro = make('header', 'article-header');
+  intro.append(
+    make('p', 'eyebrow', language === 'ur' ? 'آج کی تحریر' : 'Today’s reading'),
+    make('h1', '', content.title),
+    make('p', 'standfirst', content.standfirst)
+  );
+
+  const routineNote = make('div', 'routine-note');
+  routineNote.append(
+    make('span', 'routine-number', '1'),
+    make('p', '', language === 'ur'
+      ? 'آرام سے پڑھیں۔ کوئی وقت کی پابندی نہیں اور کچھ جمع نہیں کرانا۔'
+      : 'Read at a comfortable pace. There is no timer and nothing to submit.')
+  );
+
+  const body = make('div', 'article-body');
+  content.paragraphs.forEach((paragraph, index) => {
+    body.appendChild(make('p', index === 0 ? 'opening-paragraph' : '', paragraph));
+  });
+  panel.append(intro, routineNote, body);
+  return panel;
+}
+
 function renderArticle(article) {
   document.title = `${article.title} · English Reading Practice`;
   app.replaceChildren();
 
   const articleElement = make('article', 'reading-card');
-  const intro = make('header', 'article-header');
-
+  const articleTop = make('div', 'article-top');
   const meta = make('div', 'article-meta');
   meta.append(
     make('span', 'date-pill', formatDate(article.date)),
@@ -59,21 +90,73 @@ function renderArticle(article) {
     make('span', '', article.readingTime)
   );
 
-  const eyebrow = make('p', 'eyebrow', 'Today’s reading');
-  const title = make('h1', '', article.title);
-  const standfirst = make('p', 'standfirst', article.standfirst);
-  intro.append(meta, eyebrow, title, standfirst);
+  const availableLanguages = [
+    {
+      key: 'en',
+      label: 'English',
+      content: { title: article.title, standfirst: article.standfirst, paragraphs: article.paragraphs }
+    }
+  ];
+  if (article.translations?.ur) {
+    availableLanguages.push({ key: 'ur', label: 'اردو', content: article.translations.ur });
+  }
 
-  const routineNote = make('div', 'routine-note');
-  routineNote.append(
-    make('span', 'routine-number', '1'),
-    make('p', '', 'Read at a comfortable pace. There is no timer and nothing to submit.')
+  const languageHeader = make('div', 'language-header');
+  const languageCopy = make('div', 'language-copy');
+  languageCopy.append(
+    make('p', 'language-label', 'Story language'),
+    make('p', 'language-help', 'Flip the story at any time. Questions stay in English.')
   );
+  const languageTabs = make('div', 'language-switch');
+  languageTabs.setAttribute('role', 'tablist');
+  languageTabs.setAttribute('aria-label', 'Story language');
 
-  const body = make('div', 'article-body');
-  article.paragraphs.forEach((paragraph, index) => {
-    const p = make('p', index === 0 ? 'opening-paragraph' : '', paragraph);
-    body.appendChild(p);
+  const languageButtons = availableLanguages.map((language, index) => {
+    const button = make('button', 'language-tab', language.label);
+    button.type = 'button';
+    button.id = `${language.key}-language-tab`;
+    button.dataset.language = language.key;
+    button.setAttribute('role', 'tab');
+    button.setAttribute('aria-controls', `${language.key}-story`);
+    button.setAttribute('aria-selected', String(index === 0));
+    button.tabIndex = index === 0 ? 0 : -1;
+    return button;
+  });
+  languageTabs.append(...languageButtons);
+  languageHeader.append(languageCopy, languageTabs);
+  articleTop.append(meta, languageHeader);
+
+  const storyPanels = availableLanguages.map((language, index) => makeStoryPanel(
+    article,
+    language.key,
+    language.content,
+    index === 0
+  ));
+
+  function selectLanguage(languageKey, moveFocus = false) {
+    languageButtons.forEach((button) => {
+      const isSelected = button.dataset.language === languageKey;
+      button.setAttribute('aria-selected', String(isSelected));
+      button.tabIndex = isSelected ? 0 : -1;
+      if (isSelected && moveFocus) button.focus();
+    });
+    storyPanels.forEach((panel) => {
+      panel.hidden = panel.id !== `${languageKey}-story`;
+    });
+  }
+
+  languageButtons.forEach((button, index) => {
+    button.addEventListener('click', () => selectLanguage(button.dataset.language));
+    button.addEventListener('keydown', (event) => {
+      let nextIndex;
+      if (event.key === 'ArrowRight') nextIndex = (index + 1) % languageButtons.length;
+      if (event.key === 'ArrowLeft') nextIndex = (index - 1 + languageButtons.length) % languageButtons.length;
+      if (event.key === 'Home') nextIndex = 0;
+      if (event.key === 'End') nextIndex = languageButtons.length - 1;
+      if (nextIndex === undefined) return;
+      event.preventDefault();
+      selectLanguage(languageButtons[nextIndex].dataset.language, true);
+    });
   });
 
   const source = make('p', 'source-note');
@@ -177,7 +260,7 @@ function renderArticle(article) {
     }));
   });
 
-  articleElement.append(intro, routineNote, body, source, finish, questions);
+  articleElement.append(articleTop, ...storyPanels, source, finish, questions);
   app.appendChild(articleElement);
 }
 

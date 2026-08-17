@@ -5,7 +5,7 @@ const repoRoot = fileURLToPath(new URL('../..', import.meta.url));
 
 export default defineConfig({
   testDir: '.',
-  testMatch: 'browser-contract.spec.mjs',
+  testMatch: '*.spec.mjs',
   fullyParallel: false,
   workers: 1,
   reporter: 'line',
@@ -17,7 +17,7 @@ export default defineConfig({
     command: 'python3 -m http.server 4173 --bind 127.0.0.1',
     cwd: repoRoot,
     url: 'http://127.0.0.1:4173/reading/',
-    reuseExistingServer: true,
+    reuseExistingServer: false,
     timeout: 15_000
   },
   projects: [

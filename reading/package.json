@@ -4,10 +4,11 @@
   "type": "module",
   "scripts": {
     "test": "npm run test:content && npm run test:browser",
-    "test:content": "node tests/validate.mjs",
+    "test:content": "node tests/validate.mjs && node tests/validate-book.mjs",
     "test:browser": "playwright test --config tests/playwright.config.mjs"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
     "@playwright/test": "1.62.1"
   }
 }
