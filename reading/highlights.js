@@ -55,6 +55,13 @@
     return `highlight-${Date.now()}-${Math.random().toString(36).slice(2)}`;
   }
 
+  function scheduleToastHide(toast) {
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => {
+      toast.hidden = true;
+    }, 4200);
+  }
+
   function showToast(id, message = 'Highlight saved') {
     let toast = document.querySelector('.highlight-toast');
     if (!toast) {
@@ -62,6 +69,10 @@
       toast.className = 'highlight-toast';
       toast.setAttribute('role', 'status');
       toast.setAttribute('aria-live', 'polite');
+      toast.addEventListener('mouseenter', () => window.clearTimeout(toastTimer));
+      toast.addEventListener('mouseleave', () => scheduleToastHide(toast));
+      toast.addEventListener('focusin', () => window.clearTimeout(toastTimer));
+      toast.addEventListener('focusout', () => scheduleToastHide(toast));
       document.body.appendChild(toast);
     }
 
@@ -78,10 +89,7 @@
     toast.replaceChildren(copy, undo);
     toast.hidden = false;
 
-    window.clearTimeout(toastTimer);
-    toastTimer = window.setTimeout(() => {
-      toast.hidden = true;
-    }, 4200);
+    scheduleToastHide(toast);
   }
 
   function offsetWithin(paragraph, node, offset) {
@@ -148,7 +156,7 @@
     }
 
     handleStoredChange() {
-      if (window.getSelection()?.isCollapsed !== false) this.paintAll();
+      if (!this.selectionWasActive && window.getSelection()?.isCollapsed !== false) this.paintAll();
     }
 
     selectionDetails() {
@@ -222,7 +230,9 @@
         this.pendingDetails = null;
         this.selectionWasActive = false;
         this.activeHighlightId = null;
-        window.setTimeout(() => this.paintAll(), 0);
+        window.setTimeout(() => {
+          if (window.getSelection()?.isCollapsed !== false) this.paintAll();
+        }, 0);
       }
     }
 
@@ -325,6 +335,12 @@
       return true;
     }
   }
+
+  window.addEventListener('storage', (event) => {
+    if (event.key === STORAGE_KEY) {
+      window.dispatchEvent(new CustomEvent(CHANGE_EVENT, { detail: { items: getAll() } }));
+    }
+  });
 
   window.SanaHighlights = {
     storageKey: STORAGE_KEY,

@@ -91,7 +91,10 @@ function makeHighlightsArea() {
       const remove = make('button', 'highlight-remove', 'Remove');
       remove.type = 'button';
       remove.setAttribute('aria-label', `Remove highlight: ${highlight.text}`);
-      remove.addEventListener('click', () => window.SanaHighlights.remove(highlight.id));
+      remove.addEventListener('click', () => {
+        window.SanaHighlights.remove(highlight.id);
+        requestAnimationFrame(() => toggle.focus());
+      });
       item.append(link, remove);
       list.appendChild(item);
     });

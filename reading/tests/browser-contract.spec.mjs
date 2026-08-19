@@ -100,10 +100,21 @@ test('a quick selection is not lost and malformed saved data cannot break the re
   await page.evaluate(() => localStorage.removeItem('sana-reading:highlights:v1'));
   await page.goto('/reading/?article=2026-08-16-shark-photographs#reader');
   await selectText(page, '#en-story .article-body p', 'touching or riding a wild shark');
-  await clearSelection(page);
+  await page.evaluate(() => {
+    const selection = getSelection();
+    const restoredRange = selection.getRangeAt(0).cloneRange();
+    selection.removeAllRanges();
+    document.dispatchEvent(new Event('selectionchange'));
+    selection.addRange(restoredRange);
+    document.dispatchEvent(new Event('selectionchange'));
+  });
 
   await expect(page.locator('.highlight-toast')).toContainText('Highlight saved');
   await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('sana-reading:highlights:v1') || '[]').length)).toBe(1);
+  await expect.poll(() => page.evaluate(() => getSelection()?.toString())).toBe('touching or riding a wild shark');
+  await page.waitForTimeout(700);
+  await expect.poll(() => page.evaluate(() => getSelection()?.toString())).toBe('touching or riding a wild shark');
+  await clearSelection(page);
   await expect(page.locator('#en-story mark.saved-highlight')).toHaveText('touching or riding a wild shark');
 });
 
