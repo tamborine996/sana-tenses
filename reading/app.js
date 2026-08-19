@@ -16,6 +16,80 @@ function formatDate(isoDate) {
   }).format(new Date(`${isoDate}T12:00:00Z`));
 }
 
+function makeLibraryCard({ id, href, type, meta, title, description, action, isCurrent, variant }) {
+  const card = make('a', `library-card library-card--${variant}`);
+  card.href = href;
+  card.dataset.libraryId = id;
+  if (isCurrent) {
+    card.classList.add('is-current');
+    card.setAttribute('aria-current', 'page');
+  }
+
+  const cardTop = make('div', 'library-card__top');
+  cardTop.append(
+    make('span', 'library-card__type', type),
+    make('span', 'library-card__meta', meta)
+  );
+  const heading = make('h2', 'library-card__title', title);
+  const summary = make('p', 'library-card__description', description);
+  const footer = make('div', 'library-card__footer');
+  footer.append(
+    make('span', 'library-card__action', action),
+    make('span', 'library-card__arrow', '→')
+  );
+  card.append(cardTop, heading, summary, footer);
+  return card;
+}
+
+function makeLibrary(articles, selectedId) {
+  const section = make('section', 'library-shelf');
+  section.id = 'library';
+  section.setAttribute('aria-labelledby', 'library-heading');
+
+  const header = make('header', 'library-header');
+  const headingCopy = make('div', 'library-heading-copy');
+  const heading = make('h1', '', 'Sana’s reading library');
+  heading.id = 'library-heading';
+  headingCopy.append(
+    make('p', 'eyebrow', 'Your reading shelf'),
+    heading,
+    make('p', 'library-intro', 'Choose a short article or settle into a chapter. Earlier readings stay on the shelf as the library grows.')
+  );
+  header.append(
+    headingCopy,
+    make('span', 'library-count', `${articles.length + 1} reads`)
+  );
+
+  const cards = make('div', 'library-grid');
+  articles.forEach((article, index) => {
+    cards.appendChild(makeLibraryCard({
+      id: article.id,
+      href: `?article=${encodeURIComponent(article.id)}#reader`,
+      type: index === 0 ? 'Latest article' : 'Short article',
+      meta: `${formatDate(article.date)} · ${article.readingTime}`,
+      title: article.title,
+      description: article.standfirst,
+      action: article.id === selectedId ? 'Reading now' : 'Read article',
+      isCurrent: article.id === selectedId,
+      variant: index === 0 ? 'latest' : 'article'
+    }));
+  });
+  cards.appendChild(makeLibraryCard({
+    id: 'the-wonderful-wizard-of-oz',
+    href: 'books/wizard-of-oz/',
+    type: 'Chapter book',
+    meta: '24 chapters · Full book',
+    title: 'The Wonderful Wizard of Oz',
+    description: 'Follow Dorothy and Toto along the yellow brick road, one chapter at a time.',
+    action: 'Open the book',
+    isCurrent: false,
+    variant: 'book'
+  }));
+
+  section.append(header, cards);
+  return section;
+}
+
 function makeQuestionPanel(setName, questions, urduQuestions, isActive) {
   const panel = make('div', 'question-set');
   panel.id = `${setName}-questions`;
@@ -96,10 +170,12 @@ function makeStoryPanel(article, language, content, isActive) {
 
 function renderArticle(article) {
   document.title = `${article.title} · English Reading Practice`;
-  app.replaceChildren();
 
   const articleElement = make('article', 'reading-card');
+  articleElement.id = 'reader';
   const articleTop = make('div', 'article-top');
+  const libraryLink = make('a', 'article-library-link', '← Back to the reading library');
+  libraryLink.href = '#library';
   const meta = make('div', 'article-meta');
   meta.append(
     make('span', 'date-pill', formatDate(article.date)),
@@ -143,7 +219,7 @@ function renderArticle(article) {
   });
   languageTabs.append(...languageButtons);
   languageHeader.append(languageCopy, languageTabs);
-  articleTop.append(meta, languageHeader);
+  articleTop.append(libraryLink, meta, languageHeader);
 
   const storyPanels = availableLanguages.map((language, index) => makeStoryPanel(
     article,
@@ -304,7 +380,13 @@ async function init() {
     const articles = await response.json();
     if (!Array.isArray(articles) || articles.length === 0) throw new Error('No articles found');
     articles.sort((a, b) => b.date.localeCompare(a.date));
-    renderArticle(articles[0]);
+    const requestedId = new URLSearchParams(window.location.search).get('article');
+    const selectedArticle = articles.find((article) => article.id === requestedId) || articles[0];
+    app.replaceChildren(makeLibrary(articles, selectedArticle.id));
+    renderArticle(selectedArticle);
+    if (window.location.hash === '#reader') {
+      requestAnimationFrame(() => document.querySelector('#reader')?.scrollIntoView({ block: 'start' }));
+    }
   } catch (error) {
     console.error(error);
     renderError();

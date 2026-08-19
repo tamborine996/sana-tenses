@@ -8,6 +8,8 @@ test('chapter reader keeps a single linear path and saves progress', async ({ pa
   page.on('pageerror', (error) => browserErrors.push(error.message));
 
   await page.goto('/reading/books/wizard-of-oz/');
+  await expect(page.locator('.back-link')).toHaveText('← Sana’s Reading Library');
+  await expect(page.locator('.back-link')).toHaveAttribute('href', '../../#library');
   await expect(page.locator('.progress-label')).toHaveText('Chapter 1 of 24');
   await expect(page.locator('.chapter-title')).toHaveText('The Cyclone');
   await expect(page.locator('.chapter-body p')).toHaveCount(20);

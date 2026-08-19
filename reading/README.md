@@ -1,15 +1,16 @@
-# English Reading Practice
+# Sana’s Reading Library
 
 A phone-first, tutor-led reading routine inside the existing Sana Tenses GitHub Pages site.
 
 ## Included reading experiences
 
-- `/reading/` — the current short English-practice article, with a complete English/Urdu story switch and bilingual Easy/Challenge verbal questions.
+- `/reading/` — the reading-library shelf plus the current short English-practice article, with a complete English/Urdu story switch and bilingual Easy/Challenge verbal questions.
+- `/reading/?article=<article-id>#reader` — a stable link to any short article on the shelf.
 - `/reading/books/wizard-of-oz/` — the complete public-domain *Wonderful Wizard of Oz*, one chapter at a time, with saved progress and original W. W. Denslow chapter art.
 
 ## Short-article product contract
 
-- Show one calm current reading at a time.
+- Keep every published article visible on the library shelf, while showing one calm current reading at a time below it.
 - Use a faithful 300–500 word adaptation, not a word-for-word republication.
 - Credit and link the original source clearly.
 - Keep English canonical. When an Urdu translation is supplied, align its title, standfirst and body paragraphs with the English story.
@@ -29,7 +30,7 @@ A phone-first, tutor-led reading routine inside the existing Sana Tenses GitHub 
 4. Add exactly ten Easy and ten Challenge questions, plus aligned Urdu `prompt` and `support` translations under `questionTranslations.ur`.
 5. Run the full content, browser and accessibility suite.
 
-The page automatically displays the item with the newest `date`.
+Every valid article automatically appears on the shelf. The item with the newest `date` opens by default; selecting a shelf card opens that article using its stable `?article=<id>#reader` URL. The chapter book is kept on the same shelf and links to its dedicated reader.
 
 ## Re-import The Wonderful Wizard of Oz
 
@@ -48,7 +49,7 @@ npm install --prefix reading
 npm test --prefix reading
 ```
 
-The suite validates both data contracts, exercises language and chapter navigation, checks saved progress, verifies no horizontal overflow at 320px, 360px and 412px, and runs automated WCAG A/AA checks on English, Urdu, questions and the chapter book.
+The suite validates both data contracts, exercises the library, stable article selection, language and chapter navigation, checks saved progress, verifies no horizontal overflow at 320px, 360px and 412px, and runs automated WCAG A/AA checks on English, Urdu, questions and the chapter book.
 
 ## Local preview
 
