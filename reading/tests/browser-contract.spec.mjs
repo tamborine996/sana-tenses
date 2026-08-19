@@ -1,5 +1,35 @@
 import { test, expect } from '@playwright/test';
 
+async function selectText(page, paragraphSelector, text) {
+  await page.evaluate(({ paragraphSelector, text }) => {
+    const paragraphs = [...document.querySelectorAll(paragraphSelector)];
+    const paragraph = paragraphs.find((item) => item.textContent.includes(text));
+    if (!paragraph) throw new Error(`Could not find selection text: ${text}`);
+    const walker = document.createTreeWalker(paragraph, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+      const start = node.textContent.indexOf(text);
+      if (start === -1) continue;
+      const range = document.createRange();
+      range.setStart(node, start);
+      range.setEnd(node, start + text.length);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      document.dispatchEvent(new Event('selectionchange'));
+      return;
+    }
+    throw new Error(`Selection text crossed unsupported text nodes: ${text}`);
+  }, { paragraphSelector, text });
+}
+
+async function clearSelection(page) {
+  await page.evaluate(() => {
+    window.getSelection().removeAllRanges();
+    document.dispatchEvent(new Event('selectionchange'));
+  });
+}
+
 test('the reading library exposes every article and the chapter book', async ({ page }) => {
   await page.goto('/reading/');
 
@@ -22,6 +52,59 @@ test('the reading library exposes every article and the chapter book', async ({ 
     scrollWidth: document.documentElement.scrollWidth
   }));
   expect(dimensions.scrollWidth).toBe(dimensions.clientWidth);
+});
+
+test('native text selection saves a revisitable highlight without changing the reader', async ({ page }) => {
+  await page.goto('/reading/?article=2026-08-16-shark-photographs#reader');
+  await page.evaluate(() => localStorage.removeItem('sana-reading:highlights:v1'));
+  await page.reload();
+
+  await expect(page.locator('.article-body').first()).toHaveCSS('user-select', 'auto');
+  await selectText(page, '#en-story .article-body p', 'touching or riding a wild shark');
+  await expect(page.locator('.highlight-toast')).toContainText('Highlight saved');
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('sana-reading:highlights:v1') || '[]').length)).toBe(1);
+  await expect.poll(() => page.evaluate(() => window.getSelection().toString())).toBe('touching or riding a wild shark');
+  expect(await page.evaluate(() => {
+    const paragraph = document.querySelector('#en-story .article-body p');
+    const event = new MouseEvent('contextmenu', { bubbles: true, cancelable: true });
+    paragraph.dispatchEvent(event);
+    return event.defaultPrevented;
+  })).toBe(false);
+
+  await clearSelection(page);
+  await expect(page.locator('#en-story mark.saved-highlight')).toHaveText('touching or riding a wild shark');
+  await expect(page.locator('.highlights-toggle')).toContainText('Highlights · 1');
+
+  await page.locator('.highlights-toggle').click();
+  await expect(page.locator('#highlights-panel')).toBeVisible();
+  await expect(page.locator('.highlight-review-item')).toContainText('touching or riding a wild shark');
+  await expect(page.locator('.highlight-review-item')).toContainText('The danger behind the perfect shark picture');
+
+  await page.locator('.highlight-review-link').click();
+  await expect(page).toHaveURL(/highlight=[^&]+#reader$/);
+  await expect(page.locator('#en-story mark.saved-highlight')).toBeFocused();
+
+  await page.reload();
+  await expect(page.locator('#en-story mark.saved-highlight')).toHaveText('touching or riding a wild shark');
+});
+
+test('a quick selection is not lost and malformed saved data cannot break the reader', async ({ page }) => {
+  await page.goto('/reading/');
+  await page.evaluate(() => localStorage.setItem('sana-reading:highlights:v1', JSON.stringify([
+    { id: 'incomplete-record', contentId: 'old-article' }
+  ])));
+  await page.reload();
+  await expect(page.locator('.reading-card')).toBeVisible();
+  await expect(page.locator('.highlights-toggle')).toContainText('Highlights · 0');
+
+  await page.evaluate(() => localStorage.removeItem('sana-reading:highlights:v1'));
+  await page.goto('/reading/?article=2026-08-16-shark-photographs#reader');
+  await selectText(page, '#en-story .article-body p', 'touching or riding a wild shark');
+  await clearSelection(page);
+
+  await expect(page.locator('.highlight-toast')).toContainText('Highlight saved');
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('sana-reading:highlights:v1') || '[]').length)).toBe(1);
+  await expect(page.locator('#en-story mark.saved-highlight')).toHaveText('touching or riding a wild shark');
 });
 
 test('Easy and Challenge panels remain keyboard-reachable', async ({ page }) => {
@@ -98,6 +181,11 @@ test('English and Urdu story tabs preserve the reading flow', async ({ page }) =
   await page.locator('#en-language-tab').click();
   await expect(page.locator('#en-story h1')).toHaveText(englishTitle || '');
   await expect(page.locator('#questions')).toBeVisible();
+
+  await page.goto('/reading/?article=2026-08-19-childrens-lung-recovery&language=ur#reader');
+  await expect(page.locator('#ur-language-tab')).toHaveAttribute('aria-selected', 'true');
+  await expect(page.locator('#ur-story')).toBeVisible();
+  await expect(page.locator('#en-story')).toBeHidden();
 
   const dimensions = await page.evaluate(() => ({
     clientWidth: document.documentElement.clientWidth,

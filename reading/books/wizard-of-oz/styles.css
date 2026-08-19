@@ -198,6 +198,14 @@ h1 {
 .book-progress::-webkit-progress-value { background: linear-gradient(90deg, var(--yellow), var(--emerald)); }
 .book-progress::-moz-progress-bar { background: linear-gradient(90deg, var(--yellow), var(--emerald)); }
 
+.book-highlight-hint {
+  margin: 10px 0 0;
+  color: var(--ink-soft);
+  font-family: var(--display);
+  font-size: 0.88rem;
+  font-style: italic;
+}
+
 .chapter-card {
   border-radius: 8px 28px 28px 28px;
   overflow: hidden;
@@ -230,6 +238,53 @@ h1 {
 }
 
 .chapter-body p { margin: 0 0 1.28em; }
+
+mark.saved-highlight {
+  padding: 0 0.04em;
+  border-radius: 0.12em;
+  color: inherit;
+  background: #ffe2a0;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+mark.saved-highlight:focus {
+  outline: 3px solid rgba(165, 59, 49, 0.45);
+  outline-offset: 3px;
+}
+
+.highlight-toast {
+  position: fixed;
+  z-index: 20;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 9px 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: white;
+  background: var(--ink);
+  box-shadow: 0 12px 30px rgba(32, 45, 41, 0.25);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.highlight-toast[hidden] { display: none; }
+
+.highlight-toast button {
+  min-width: 58px;
+  min-height: 36px;
+  padding: 7px 11px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--yellow);
+  font: 700 0.76rem/1.2 var(--sans);
+  cursor: pointer;
+}
 
 .opening-paragraph::first-letter {
   float: left;
@@ -334,6 +389,11 @@ h1 {
   .chapter-button-primary { grid-row: 1; }
   .chapter-button-secondary { grid-row: 2; }
   .source-note { padding: 20px 22px; }
+  .highlight-toast {
+    right: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    max-width: calc(100% - 24px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

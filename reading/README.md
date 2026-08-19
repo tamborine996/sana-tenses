@@ -8,6 +8,15 @@ A phone-first, tutor-led reading routine inside the existing Sana Tenses GitHub 
 - `/reading/?article=<article-id>#reader` — a stable link to any short article on the shelf.
 - `/reading/books/wizard-of-oz/` — the complete public-domain *Wonderful Wizard of Oz*, one chapter at a time, with saved progress and original W. W. Denslow chapter art.
 
+## Saved highlights
+
+- Native browser text selection remains in charge: the readers do not replace long-press handles, Copy, Translate or the context menu.
+- Selecting one word or a short phrase inside an article or book paragraph saves it automatically after the selection settles.
+- The original selection stays intact while browser actions are available. The persistent marker is painted only after the native selection is dismissed.
+- A small `Highlight saved · Undo` confirmation makes accidental selections reversible.
+- The library’s quiet `Highlights · <count>` control opens a review list with sentence context and a link back to the exact article or chapter passage.
+- Highlights are stored in `localStorage` under `sana-reading:highlights:v1`, so they remain private to the current browser and device.
+
 ## Short-article product contract
 
 - Keep every published article visible on the library shelf, while showing one calm current reading at a time below it.
@@ -49,7 +58,7 @@ npm install --prefix reading
 npm test --prefix reading
 ```
 
-The suite validates both data contracts, exercises the library, stable article selection, language and chapter navigation, checks saved progress, verifies no horizontal overflow at 320px, 360px and 412px, and runs automated WCAG A/AA checks on English, Urdu, questions and the chapter book.
+The suite validates both data contracts, exercises the library, stable article selection, saved native highlights and passage return links, language and chapter navigation, checks saved progress, verifies no horizontal overflow at 320px, 360px and 412px, and runs automated WCAG A/AA checks on English, Urdu, questions and the chapter book.
 
 ## Local preview
 

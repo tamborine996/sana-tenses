@@ -24,7 +24,7 @@ function readSavedChapter(chapterCount) {
   return 0;
 }
 
-function saveChapter(index) {
+function saveChapter(index, keepHighlight = false) {
   try {
     localStorage.setItem(STORAGE_KEY, String(index));
   } catch (error) {
@@ -32,6 +32,7 @@ function saveChapter(index) {
   }
   const url = new URL(window.location.href);
   url.searchParams.set('chapter', String(index + 1));
+  if (!keepHighlight) url.searchParams.delete('highlight');
   history.replaceState({}, '', url);
 }
 
@@ -50,6 +51,7 @@ function renderError() {
 
 function renderBook(book) {
   let currentIndex = readSavedChapter(book.chapters.length);
+  const requestedHighlight = new URLSearchParams(window.location.search).get('highlight');
 
   const masthead = make('section', 'book-masthead');
   const cover = make('img', 'book-cover');
@@ -74,7 +76,11 @@ function renderBook(book) {
   progressCopy.append(progressLabel, progressTitle);
   const progress = make('progress', 'book-progress');
   progress.max = book.chapters.length;
-  progressSection.append(progressCopy, progress);
+  progressSection.append(
+    progressCopy,
+    progress,
+    make('p', 'book-highlight-hint', 'Select a word or short phrase to save it automatically.')
+  );
 
   const chapterCard = make('article', 'chapter-card');
   const chapterHeader = make('header', 'chapter-header');
@@ -110,7 +116,7 @@ function renderBook(book) {
   function showChapter(index, moveFocus = false) {
     currentIndex = index;
     const chapter = book.chapters[currentIndex];
-    saveChapter(currentIndex);
+    saveChapter(currentIndex, !moveFocus);
 
     document.title = `Chapter ${chapter.number}: ${chapter.title} · ${book.title}`;
     progress.value = currentIndex + 1;
@@ -124,8 +130,14 @@ function renderBook(book) {
 
     chapterBody.replaceChildren();
     chapter.paragraphs.forEach((paragraph, paragraphIndex) => {
-      chapterBody.appendChild(make('p', paragraphIndex === 0 ? 'opening-paragraph' : '', paragraph));
+      const paragraphElement = make('p', paragraphIndex === 0 ? 'opening-paragraph' : '', paragraph);
+      paragraphElement.dataset.highlightParagraph = String(paragraphIndex);
+      paragraphElement.dataset.highlightSection = String(chapter.number);
+      paragraphElement.dataset.highlightLanguage = 'en';
+      chapterBody.appendChild(paragraphElement);
     });
+    highlighter?.refresh();
+    if (requestedHighlight) highlighter?.reveal(requestedHighlight);
 
     previousButton.disabled = currentIndex === 0;
     previousButton.hidden = currentIndex === 0;
@@ -149,6 +161,24 @@ function renderBook(book) {
   });
 
   app.replaceChildren(masthead, progressSection, chapterCard, sourceNote);
+  const highlighter = window.SanaHighlights?.attach(chapterBody, {
+    getContext(paragraph) {
+      const chapterNumber = Number(paragraph.dataset.highlightSection);
+      const chapter = book.chapters[chapterNumber - 1];
+      return {
+        contentId: 'the-wonderful-wizard-of-oz',
+        contentType: 'book',
+        title: book.title,
+        section: String(chapterNumber),
+        language: 'en',
+        locationLabel: `Chapter ${chapterNumber}: ${chapter?.title || ''}`
+      };
+    },
+    makeHref(highlight) {
+      return `books/wizard-of-oz/?chapter=${encodeURIComponent(highlight.section)}&highlight=${encodeURIComponent(highlight.id)}#chapter-reader`;
+    }
+  });
+  chapterCard.id = 'chapter-reader';
   showChapter(currentIndex);
 }
 

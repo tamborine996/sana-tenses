@@ -182,6 +182,132 @@ button:focus-visible {
   text-transform: uppercase;
 }
 
+.library-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.highlights-toggle {
+  min-height: 40px;
+  padding: 8px 13px;
+  border: 1px solid rgba(213, 101, 77, 0.28);
+  border-radius: 999px;
+  color: var(--coral-text);
+  background: var(--coral-soft);
+  font: 600 0.75rem/1.2 var(--sans);
+  cursor: pointer;
+}
+
+.highlights-toggle[aria-expanded="true"] {
+  color: white;
+  background: var(--coral-text);
+}
+
+.highlights-panel {
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid rgba(200, 153, 60, 0.28);
+  border-radius: 7px 20px 20px 20px;
+  background: linear-gradient(145deg, #fffdf8, #fff8dc);
+}
+
+.highlights-panel[hidden] {
+  display: none;
+}
+
+.highlights-panel__header {
+  max-width: 650px;
+}
+
+.highlights-panel__header h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.highlights-panel__header p,
+.highlights-empty {
+  margin: 9px 0 0;
+  color: var(--ink-soft);
+  font-family: var(--display);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.highlights-review-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.highlight-review-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: 15px;
+  border: 1px solid rgba(84, 100, 95, 0.16);
+  border-radius: 5px 14px 14px 14px;
+  background: rgba(255, 253, 248, 0.88);
+}
+
+.highlight-review-link {
+  display: grid;
+  min-width: 0;
+  gap: 5px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.highlight-review-link:hover .highlight-review-text {
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+}
+
+.highlight-review-text {
+  width: fit-content;
+  padding: 2px 5px;
+  border-radius: 3px;
+  background: #ffe2a0;
+  font-family: var(--display);
+  font-size: 1.15rem;
+}
+
+.highlight-review-context {
+  overflow: hidden;
+  color: var(--ink-soft);
+  font-family: var(--display);
+  font-size: 0.93rem;
+  line-height: 1.42;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.highlight-review-source {
+  overflow: hidden;
+  color: var(--green);
+  font: 600 0.7rem/1.35 var(--sans);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.highlight-remove {
+  min-height: 44px;
+  align-self: center;
+  padding: 8px 11px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--coral-text);
+  background: transparent;
+  font: 600 0.7rem/1.2 var(--sans);
+  cursor: pointer;
+}
+
+.highlight-remove:hover {
+  background: var(--coral-soft);
+}
+
 .library-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -544,6 +670,55 @@ h2 {
   margin: 0 0 1.25em;
 }
 
+mark.saved-highlight {
+  padding: 0 0.04em;
+  border-radius: 0.12em;
+  color: inherit;
+  background: #ffe2a0;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+mark.saved-highlight:focus {
+  outline: 3px solid rgba(213, 101, 77, 0.48);
+  outline-offset: 3px;
+}
+
+.highlight-toast {
+  position: fixed;
+  z-index: 20;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 9px 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: white;
+  background: var(--ink);
+  box-shadow: 0 12px 30px rgba(32, 49, 46, 0.24);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.highlight-toast[hidden] {
+  display: none;
+}
+
+.highlight-toast button {
+  min-width: 58px;
+  min-height: 36px;
+  padding: 7px 11px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--ink);
+  background: #ffe2a0;
+  font: 600 0.76rem/1.2 var(--sans);
+  cursor: pointer;
+}
+
 .opening-paragraph::first-letter {
   float: left;
   margin: 0.08em 0.09em 0 0;
@@ -894,6 +1069,30 @@ h2 {
     gap: 14px;
   }
 
+  .library-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .highlights-panel {
+    margin-top: 18px;
+    padding: 18px 15px;
+  }
+
+  .highlight-review-item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 5px;
+  }
+
+  .highlight-review-context,
+  .highlight-review-source {
+    white-space: normal;
+  }
+
+  .highlight-remove {
+    justify-self: start;
+  }
+
   .library-heading-copy h1 {
     font-size: clamp(2.5rem, 14vw, 3.35rem);
   }
@@ -1018,6 +1217,12 @@ h2 {
 
   .question-translation {
     margin-left: -40px;
+  }
+
+  .highlight-toast {
+    right: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    max-width: calc(100% - 24px);
   }
 }
 

@@ -41,6 +41,74 @@ function makeLibraryCard({ id, href, type, meta, title, description, action, isC
   return card;
 }
 
+function makeHighlightsArea() {
+  const toggle = make('button', 'highlights-toggle');
+  toggle.type = 'button';
+  toggle.setAttribute('aria-controls', 'highlights-panel');
+  toggle.setAttribute('aria-expanded', 'false');
+
+  const panel = make('section', 'highlights-panel');
+  panel.id = 'highlights-panel';
+  panel.hidden = true;
+  panel.setAttribute('aria-labelledby', 'highlights-heading');
+
+  function render() {
+    const highlights = window.SanaHighlights?.getAll() || [];
+    toggle.textContent = `Highlights · ${highlights.length}`;
+    panel.replaceChildren();
+
+    const header = make('header', 'highlights-panel__header');
+    const heading = make('h2', '', 'Your highlights');
+    heading.id = 'highlights-heading';
+    heading.tabIndex = -1;
+    header.append(
+      heading,
+      make('p', '', 'Select a word or short phrase while reading. It saves automatically and the browser’s Translate and Copy tools still work.')
+    );
+    panel.appendChild(header);
+
+    if (highlights.length === 0) {
+      panel.appendChild(make('p', 'highlights-empty', 'Nothing saved yet. Your first highlight will appear here.'));
+      return;
+    }
+
+    const list = make('div', 'highlights-review-list');
+    [...highlights].sort((left, right) => right.createdAt.localeCompare(left.createdAt)).forEach((highlight) => {
+      const item = make('article', 'highlight-review-item');
+      const link = make('a', 'highlight-review-link');
+      link.href = highlight.href;
+      const selectedText = make('strong', 'highlight-review-text', highlight.text);
+      selectedText.lang = highlight.language;
+      selectedText.dir = highlight.language === 'ur' ? 'rtl' : 'ltr';
+      const context = make('span', 'highlight-review-context', highlight.context);
+      context.lang = highlight.language;
+      context.dir = highlight.language === 'ur' ? 'rtl' : 'ltr';
+      link.append(
+        selectedText,
+        context,
+        make('small', 'highlight-review-source', `${highlight.title} · ${highlight.locationLabel}`)
+      );
+      const remove = make('button', 'highlight-remove', 'Remove');
+      remove.type = 'button';
+      remove.setAttribute('aria-label', `Remove highlight: ${highlight.text}`);
+      remove.addEventListener('click', () => window.SanaHighlights.remove(highlight.id));
+      item.append(link, remove);
+      list.appendChild(item);
+    });
+    panel.appendChild(list);
+  }
+
+  toggle.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    panel.hidden = isOpen;
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    if (!isOpen) panel.querySelector('h2')?.focus({ preventScroll: true });
+  });
+  window.addEventListener('sana:highlights-changed', render);
+  render();
+  return { toggle, panel };
+}
+
 function makeLibrary(articles, selectedId) {
   const section = make('section', 'library-shelf');
   section.id = 'library';
@@ -55,9 +123,15 @@ function makeLibrary(articles, selectedId) {
     heading,
     make('p', 'library-intro', 'Choose a short article or settle into a chapter. Earlier readings stay on the shelf as the library grows.')
   );
+  const highlightsArea = makeHighlightsArea();
+  const libraryActions = make('div', 'library-actions');
+  libraryActions.append(
+    make('span', 'library-count', `${articles.length + 1} reads`),
+    highlightsArea.toggle
+  );
   header.append(
     headingCopy,
-    make('span', 'library-count', `${articles.length + 1} reads`)
+    libraryActions
   );
 
   const cards = make('div', 'library-grid');
@@ -86,7 +160,7 @@ function makeLibrary(articles, selectedId) {
     variant: 'book'
   }));
 
-  section.append(header, cards);
+  section.append(header, highlightsArea.panel, cards);
   return section;
 }
 
@@ -162,7 +236,11 @@ function makeStoryPanel(article, language, content, isActive) {
 
   const body = make('div', 'article-body');
   content.paragraphs.forEach((paragraph, index) => {
-    body.appendChild(make('p', index === 0 ? 'opening-paragraph' : '', paragraph));
+    const paragraphElement = make('p', index === 0 ? 'opening-paragraph' : '', paragraph);
+    paragraphElement.dataset.highlightParagraph = String(index);
+    paragraphElement.dataset.highlightSection = 'article';
+    paragraphElement.dataset.highlightLanguage = language;
+    body.appendChild(paragraphElement);
   });
   panel.append(intro, routineNote, body);
   return panel;
@@ -195,37 +273,42 @@ function renderArticle(article) {
   if (article.translations?.ur) {
     availableLanguages.push({ key: 'ur', label: 'اردو', content: article.translations.ur });
   }
+  const requestedLanguage = new URLSearchParams(window.location.search).get('language');
+  const initialLanguageKey = availableLanguages.some((language) => language.key === requestedLanguage)
+    ? requestedLanguage
+    : 'en';
 
   const languageHeader = make('div', 'language-header');
   const languageCopy = make('div', 'language-copy');
   languageCopy.append(
     make('p', 'language-label', 'Story language'),
-    make('p', 'language-help', 'Flip the article at any time. Questions include Urdu help.')
+    make('p', 'language-help', 'Select a word or phrase to save it. Questions include Urdu help.')
   );
   const languageTabs = make('div', 'language-switch');
   languageTabs.setAttribute('role', 'tablist');
   languageTabs.setAttribute('aria-label', 'Story language');
 
-  const languageButtons = availableLanguages.map((language, index) => {
+  const languageButtons = availableLanguages.map((language) => {
+    const isInitialLanguage = language.key === initialLanguageKey;
     const button = make('button', 'language-tab', language.label);
     button.type = 'button';
     button.id = `${language.key}-language-tab`;
     button.dataset.language = language.key;
     button.setAttribute('role', 'tab');
     button.setAttribute('aria-controls', `${language.key}-story`);
-    button.setAttribute('aria-selected', String(index === 0));
-    button.tabIndex = index === 0 ? 0 : -1;
+    button.setAttribute('aria-selected', String(isInitialLanguage));
+    button.tabIndex = isInitialLanguage ? 0 : -1;
     return button;
   });
   languageTabs.append(...languageButtons);
   languageHeader.append(languageCopy, languageTabs);
   articleTop.append(libraryLink, meta, languageHeader);
 
-  const storyPanels = availableLanguages.map((language, index) => makeStoryPanel(
+  const storyPanels = availableLanguages.map((language) => makeStoryPanel(
     article,
     language.key,
     language.content,
-    index === 0
+    language.key === initialLanguageKey
   ));
 
   function selectLanguage(languageKey, moveFocus = false) {
@@ -358,6 +441,25 @@ function renderArticle(article) {
 
   articleElement.append(articleTop, ...storyPanels, source, finish, questions);
   app.appendChild(articleElement);
+
+  const highlighter = window.SanaHighlights?.attach(articleElement, {
+    getContext(paragraph) {
+      const language = paragraph.dataset.highlightLanguage || 'en';
+      return {
+        contentId: article.id,
+        contentType: 'article',
+        title: article.title,
+        section: 'article',
+        language,
+        locationLabel: language === 'ur' ? 'Urdu article' : 'English article'
+      };
+    },
+    makeHref(highlight) {
+      return `?article=${encodeURIComponent(article.id)}&language=${encodeURIComponent(highlight.language)}&highlight=${encodeURIComponent(highlight.id)}#reader`;
+    }
+  });
+  const requestedHighlight = new URLSearchParams(window.location.search).get('highlight');
+  if (requestedHighlight) highlighter?.reveal(requestedHighlight);
 }
 
 function renderError() {
@@ -384,7 +486,7 @@ async function init() {
     const selectedArticle = articles.find((article) => article.id === requestedId) || articles[0];
     app.replaceChildren(makeLibrary(articles, selectedArticle.id));
     renderArticle(selectedArticle);
-    if (window.location.hash === '#reader') {
+    if (window.location.hash === '#reader' && !new URLSearchParams(window.location.search).has('highlight')) {
       requestAnimationFrame(() => document.querySelector('#reader')?.scrollIntoView({ block: 'start' }));
     }
   } catch (error) {
