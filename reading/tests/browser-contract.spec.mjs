@@ -8,6 +8,8 @@ test('Easy and Challenge panels remain keyboard-reachable', async ({ page }) => 
   page.on('pageerror', (error) => browserErrors.push(error.message));
 
   await page.goto('/reading/');
+  await expect(page.locator('#en-story h1')).toHaveText('The Clean-Air Surprise: How London Children’s Lungs Began to Recover');
+  await expect(page.locator('.source-note a')).toHaveAttribute('href', 'https://www.bbc.co.uk/news/articles/c1l1r1zne1ro');
   await expect(page.locator('#questions')).toBeHidden();
 
   await page.locator('.reveal-button').press('Enter');
@@ -15,6 +17,13 @@ test('Easy and Challenge panels remain keyboard-reachable', async ({ page }) => 
   await expect(page.locator('#questions-heading')).toBeFocused();
   await expect(page.locator('#easy-tab')).toHaveAttribute('aria-selected', 'true');
   await expect(page.locator('#easy-questions .question-item')).toHaveCount(10);
+  await expect(page.locator('#easy-questions .question-translation')).toHaveCount(10);
+  await expect(page.locator('#easy-questions .question-translation').first()).toHaveAttribute('lang', 'ur');
+  await expect(page.locator('#easy-questions .question-translation').first()).toHaveAttribute('dir', 'rtl');
+  await expect(page.locator('#easy-questions .question-text-urdu').first()).toContainText(/[\u0600-\u06ff]/);
+  await expect(page.locator('#easy-questions .question-support-urdu')).toHaveCount(10);
+  await expect(page.locator('#easy-questions .question-example bdi').first()).toHaveAttribute('lang', 'en');
+  await expect(page.locator('#easy-questions .question-example bdi').first()).toHaveAttribute('dir', 'ltr');
   await expect(page.locator('#challenge-questions')).toBeHidden();
 
   await page.locator('#easy-tab').focus();
@@ -23,6 +32,10 @@ test('Easy and Challenge panels remain keyboard-reachable', async ({ page }) => 
   await expect(page.locator('#challenge-tab')).toHaveAttribute('aria-selected', 'true');
   await expect(page.locator('#easy-questions')).toBeHidden();
   await expect(page.locator('#challenge-questions .question-item')).toHaveCount(10);
+  await expect(page.locator('#challenge-questions .question-translation')).toHaveCount(10);
+  await expect(page.locator('#challenge-questions .question-support-urdu')).toHaveCount(10);
+  await expect(page.locator('#challenge-questions .question-example bdi').first()).toHaveAttribute('lang', 'en');
+  await expect(page.locator('#challenge-questions .question-example bdi').first()).toHaveAttribute('dir', 'ltr');
   await expect(page.locator('#challenge-questions')).toBeVisible();
 
   await page.keyboard.press('Tab');

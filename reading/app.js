@@ -16,7 +16,7 @@ function formatDate(isoDate) {
   }).format(new Date(`${isoDate}T12:00:00Z`));
 }
 
-function makeQuestionPanel(setName, questions, isActive) {
+function makeQuestionPanel(setName, questions, urduQuestions, isActive) {
   const panel = make('div', 'question-set');
   panel.id = `${setName}-questions`;
   panel.setAttribute('role', 'tabpanel');
@@ -25,17 +25,36 @@ function makeQuestionPanel(setName, questions, isActive) {
   panel.hidden = !isActive;
 
   const list = make('ol', 'question-list');
-  questions.forEach((question) => {
+  questions.forEach((question, index) => {
     const item = make('li', 'question-item');
     const labelRow = make('div', 'question-labels');
     labelRow.append(
       make('span', 'question-stage', question.label),
       make('span', 'tense-label', question.tense)
     );
+    const urduQuestion = urduQuestions[index];
+    const translation = make('div', 'question-translation');
+    translation.lang = 'ur';
+    translation.dir = 'rtl';
+    translation.setAttribute('aria-label', 'Urdu translation');
+    translation.append(
+      make('p', 'question-text-urdu', urduQuestion.prompt),
+      make('p', 'question-support-urdu', urduQuestion.support)
+    );
+    if (urduQuestion.englishExample) {
+      const example = make('p', 'question-example');
+      const isolatedEnglish = document.createElement('bdi');
+      isolatedEnglish.lang = 'en';
+      isolatedEnglish.dir = 'ltr';
+      isolatedEnglish.textContent = urduQuestion.englishExample;
+      example.appendChild(isolatedEnglish);
+      translation.appendChild(example);
+    }
     item.append(
       labelRow,
       make('p', 'question-text', question.prompt),
-      make('p', 'question-support', question.support)
+      make('p', 'question-support', question.support),
+      translation
     );
     list.appendChild(item);
   });
@@ -105,7 +124,7 @@ function renderArticle(article) {
   const languageCopy = make('div', 'language-copy');
   languageCopy.append(
     make('p', 'language-label', 'Story language'),
-    make('p', 'language-help', 'Flip the story at any time. Questions stay in English.')
+    make('p', 'language-help', 'Flip the article at any time. Questions include Urdu help.')
   );
   const languageTabs = make('div', 'language-switch');
   languageTabs.setAttribute('role', 'tablist');
@@ -184,7 +203,7 @@ function renderArticle(article) {
   questionHeader.append(
     make('p', 'eyebrow', 'Talk it through'),
     make('h2', '', 'Choose your questions'),
-    make('p', 'questions-intro', 'Start with ten easy questions, or switch to ten challenge questions. Answer out loud with your tutor and take your time.')
+    make('p', 'questions-intro', 'Start with ten easy questions, or switch to ten challenge questions. Each one includes Urdu help. Answer out loud with your tutor and take your time.')
   );
   const questionHeading = questionHeader.querySelector('h2');
   questionHeading.id = 'questions-heading';
@@ -212,6 +231,7 @@ function renderArticle(article) {
   const panels = setNames.map((setName, index) => makeQuestionPanel(
     setName,
     article.questionSets[setName],
+    article.questionTranslations.ur[setName],
     index === 0
   ));
   questionSets.append(...panels);

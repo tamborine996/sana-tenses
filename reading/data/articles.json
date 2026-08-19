@@ -157,6 +157,360 @@
           "support": "Give one past point, one present recommendation and one future prediction."
         }
       ]
+    },
+    "questionTranslations": {
+      "ur": {
+        "easy": [
+          {
+            "prompt": "اپنے الفاظ میں بتائیں کہ اس تحریر میں کیا بیان کیا گیا ہے؟",
+            "support": "یوں شروع کریں: ’یہ تحریر ... کے بارے میں ہے۔‘"
+          },
+          {
+            "prompt": "تائیانے دالازین کہاں تھیں، اور انہوں نے کس قسم کے سفر میں شرکت کی؟",
+            "support": "کوشش کریں: ’وہ برازیل کے ساحل سے دور سمندر میں تھیں، اور انہوں نے ... میں شرکت کی۔‘"
+          },
+          {
+            "prompt": "دورے کے منتظمین پہلے کیا کرتے رہے تھے، اور انہوں نے ایسا کیوں کیا تھا؟",
+            "support": "اپنے انگریزی جواب میں یہ الفاظ استعمال کریں۔",
+            "englishExample": "had been feeding · so that"
+          },
+          {
+            "prompt": "نرس شارک نے کیا کیا، اور تائیانے نے کس طرح ردِعمل دیا؟",
+            "support": "اپنے انگریزی جواب میں یہ الفاظ استعمال کریں۔",
+            "englishExample": "bit · held · stayed calm"
+          },
+          {
+            "prompt": "یہ واقعہ کیسے ختم ہوا، اور تائیانے کو کون سی چوٹیں آئیں؟",
+            "support": "ماضی کے زمانے میں دو مکمل انگریزی جملوں میں جواب دیں۔"
+          },
+          {
+            "prompt": "ہر سال شارک کے بلا اشتعال کاٹنے کے تقریباً کتنے واقعات ہوتے ہیں، اور یہ تعداد کتنے عرصے سے تقریباً یکساں رہی ہے؟",
+            "support": "اپنے انگریزی جواب میں یہ فقرہ استعمال کرنے کی کوشش کریں۔",
+            "englishExample": "has stayed"
+          },
+          {
+            "prompt": "حالیہ برسوں میں محققین نے کس چیز میں اضافہ دیکھا ہے؟",
+            "support": "اس انگریزی فقرے سے شروع کریں۔",
+            "englishExample": "Researchers have noticed…"
+          },
+          {
+            "prompt": "شارک کے بہت قریب جانا خود شارک کو کس طرح نقصان پہنچا سکتا ہے؟",
+            "support": "تحریر میں بیان کیے گئے کم از کم دو اثرات بتائیں۔"
+          },
+          {
+            "prompt": "کچھ مواد تخلیق کرنے والوں کے مطابق ان کی قریب سے بنائی گئی ویڈیوز کیا فائدہ دیتی ہیں؟",
+            "support": "اس انگریزی فقرے سے شروع کرنے کی کوشش کریں۔",
+            "englishExample": "They argue that…"
+          },
+          {
+            "prompt": "تحریر کے آخر میں شارک کے ماہرین کیا تنبیہ کرتے ہیں؟",
+            "support": "آخری جملہ نقل کیے بغیر تنبیہ کی وضاحت کریں۔"
+          }
+        ],
+        "challenge": [
+          {
+            "prompt": "منتظمین کے شارکوں کو پہلے سے خوراک دینے کے فیصلے نے تائیانے کے غوطے کے دوران خطرے کو کس طرح بدلا ہو گا؟",
+            "support": "پہلے بتائیں کہ انہوں نے کیا کیا تھا، پھر یہ کہ بعد میں کیا ہوا۔"
+          },
+          {
+            "prompt": "اگر تائیانے گھبرا جاتیں اور شارک سے لڑتیں تو کیا ہو سکتا تھا؟",
+            "support": "اس انگریزی ساخت کو استعمال کرنے کی کوشش کریں۔",
+            "englishExample": "If she had…, the shark might have…"
+          },
+          {
+            "prompt": "شارک کے کاٹنے کے واقعات بہت نایاب ہیں، پھر بھی فلم بندی سے متعلق واقعات بڑھ رہے ہیں۔ یہ دونوں باتیں ایک ساتھ کیسے درست ہو سکتی ہیں؟",
+            "support": "اپنے انگریزی جواب میں یہ الفاظ اور فقرہ استعمال کریں۔",
+            "englishExample": "overall · however · among people who…"
+          },
+          {
+            "prompt": "مواد تخلیق کرنے والے کہتے ہیں کہ قریب سے بنائی گئی ویڈیوز تحفظ میں مدد دیتی ہیں، جبکہ سائنس دان انہیں ہراسانی قرار دیتے ہیں۔ کون سی دلیل زیادہ مضبوط ہے اور کیوں؟",
+            "support": "اپنی رائے دیں اور تحریر سے ثبوت پیش کریں۔"
+          },
+          {
+            "prompt": "جنگلی حیات سے متعلق خطرناک انداز میں بنایا گیا مواد پھیلانے کے لیے سب سے زیادہ ذمہ دار کون ہے: سیاح، ٹور کمپنیاں، سوشل میڈیا پلیٹ فارم یا ناظرین؟",
+            "support": "اپنی وجہ بتانے کے لیے ان میں سے کوئی لفظ استعمال کریں۔",
+            "englishExample": "should · must · ought to"
+          },
+          {
+            "prompt": "شارک ٹور کمپنیوں کو کن اصولوں پر عمل کرنا چاہیے، اور اگر کوئی سیاح انہیں نظر انداز کرے تو کیا ہونا چاہیے؟",
+            "support": "اس انگریزی ساخت کو استعمال کرنے کی کوشش کریں۔",
+            "englishExample": "Companies should… If a visitor…, then…"
+          },
+          {
+            "prompt": "کسی اور واقعے کے بارے میں سوچیں جس میں کسی نے تصویر یا ویڈیو کے لیے خطرہ مول لیا ہو۔ کیا ہوا، اور اس سے آج ہمیں کیا سبق ملتا ہے؟",
+            "support": "پہلے ماضی کا واقعہ سنائیں، پھر موجودہ سبق بیان کریں۔"
+          },
+          {
+            "prompt": "تصور کریں کہ آپ ٹور کمپنی چلاتے ہیں۔ آپ کہیں گے کہ کمپنی نے کیا غلط کیا، اور اب آپ کی حفاظتی پالیسی کیا ہے؟",
+            "support": "ماضی کی غلطی سے موجودہ پالیسی کی طرف واضح طور پر آئیں۔"
+          },
+          {
+            "prompt": "اگر شارک سیاحت اسی طرح بڑھتی رہی تو مستقبل میں سیاحوں اور شارکوں کے ساتھ کیا ہو گا یا کیا ہو سکتا ہے؟",
+            "support": "اگر ممکن ہو تو اپنے انگریزی جواب میں یہ دونوں الفاظ استعمال کریں۔",
+            "englishExample": "will · might"
+          },
+          {
+            "prompt": "اس واقعے کو ثبوت بناتے ہوئے بتائیں کہ لوگوں نے کیا سیکھا، انہیں اب کیا کرنا چاہیے، اور مستقبل میں کیا بدل سکتا ہے۔",
+            "support": "ماضی کی ایک بات، حال کی ایک تجویز اور مستقبل کی ایک پیش گوئی دیں۔"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "2026-08-19-childrens-lung-recovery",
+    "date": "2026-08-19",
+    "category": "Health & environment",
+    "readingTime": "4 minute read",
+    "title": "The Clean-Air Surprise: How London Children’s Lungs Began to Recover",
+    "standfirst": "A five-year study found that children’s lungs caught up surprisingly quickly after traffic pollution fell inside London’s clean-air zone.",
+    "translations": {
+      "ur": {
+        "title": "صاف ہوا کا حیرت انگیز اثر: لندن کے بچوں کے پھیپھڑے کیسے بہتر ہونے لگے",
+        "standfirst": "پانچ سالہ تحقیق سے معلوم ہوا کہ لندن کے صاف ہوا والے علاقے میں ٹریفک کی آلودگی کم ہونے کے بعد بچوں کے پھیپھڑوں کی نشوونما حیرت انگیز تیزی سے معمول کے قریب آ گئی۔",
+        "paragraphs": [
+          "لندن میں چھوٹے بچوں کے پھیپھڑے فضائی آلودگی کی وجہ سے اپنی پوری صلاحیت کے مطابق نہیں بڑھ رہے تھے۔ پھر 2019 میں شہر کے وسط میں الٹرا لو ایمیشن زون، یا یولیز، متعارف کرایا گیا۔ زیادہ آلودگی پھیلانے والی پرانی گاڑیوں کو اس علاقے میں داخل ہونے کے لیے روزانہ فیس ادا کرنا پڑتی تھی۔ ایک نئی تحقیق کے مطابق، آلودگی کم ہونے کے بعد بچوں کے پھیپھڑوں نے اتنی تیزی سے بہتری دکھائی کہ سائنس دان نتائج دیکھ کر حیران رہ گئے۔",
+          "محققین نے لندن اور لوٹن کے 3,400 سے زیادہ پرائمری اسکول کے بچوں کا پانچ سال تک مطالعہ کیا۔ بچے تحقیق کے آغاز پر چھ سے نو سال کے تھے۔ ہر سال انہوں نے ایسے ٹیسٹ دیے جن میں ایک گہری سانس لینے کے بعد ایک سیکنڈ میں زور سے باہر نکالی جانے والی ہوا کی مقدار ناپی گئی۔ لوٹن کو موازنہ کے لیے منتخب کیا گیا کیونکہ وہاں کے بچے سماجی پس منظر کے لحاظ سے ملتے جلتے تھے، مگر شہر لندن سے کم آلودہ تھا۔",
+          "شروع میں لندن کے بچوں کے پھیپھڑوں کی گنجائش لوٹن کے بچوں سے کم تھی۔ چار سال بعد دونوں گروہوں کی گنجائش تقریباً برابر ہو گئی۔ لندن میں جن بچوں کے پھیپھڑوں کی گنجائش طبی طور پر متاثر سمجھی گئی، ان کی شرح 14 فیصد سے گھٹ کر 9 فیصد رہ گئی، جبکہ لوٹن میں یہ 9 فیصد سے 7 فیصد ہوئی۔ نائٹروجن ڈائی آکسائیڈ کی مقدار بھی لندن میں زیادہ تیزی سے کم ہوئی۔ محققین کے مطابق، اس سے ظاہر ہوتا ہے کہ صاف ہوا نے بچوں کے پھیپھڑوں کو نشوونما کی کمی پوری کرنے میں مدد دی۔",
+          "یہ بہتری روزمرہ زندگی میں اہم ہو سکتی ہے: بچے سانس پھولے بغیر زیادہ تیز دوڑ سکتے ہیں یا زیادہ موم بتیاں بجھا سکتے ہیں۔ بچوں کو آلودگی سے خاص خطرہ ہوتا ہے کیونکہ ان کے پھیپھڑے اور مدافعتی نظام ابھی نشوونما پا رہے ہوتے ہیں، اور وہ زمین کے قریب ہونے کی وجہ سے گاڑیوں کے دھوئیں کے بھی زیادہ قریب ہوتے ہیں۔ فضائی آلودگی دمہ، دل کی بیماری اور زندگی کے بعد کے حصے میں دیگر سنگین بیماریوں کا خطرہ بڑھا سکتی ہے۔",
+          "تاہم، تحقیق یہ ثابت نہیں کرتی کہ ہر بہتری صرف یولیز کی وجہ سے ہوئی۔ لندن اور لوٹن کے موازنے سے وبا کے دور میں ہونے والی عمومی تبدیلیوں کا اثر الگ کرنے میں مدد ملی، لیکن اسکول جانے کے لیے زیادہ پیدل چلنا یا سائیکل چلانا اور دونوں شہروں کے درمیان دوسرے غیر ناپے گئے فرق بھی اثر انداز ہوئے ہوں گے۔ یولیز کو سیاسی مخالفت بھی برداشت کرنا پڑی کیونکہ اس نے گاڑی چلانے والوں اور کاروباروں کو متاثر کیا۔ اس کے باوجود، ماہرین کا کہنا ہے کہ یہ صاف ہوا کے علاقوں کے حق میں اب تک کے مضبوط ترین شواہد میں سے ایک ہے۔ دونوں شہروں میں آلودگی اب بھی عالمی ادارۂ صحت کی ہدایات سے زیادہ ہے، اس لیے کام ابھی ختم نہیں ہوا۔"
+        ]
+      }
+    },
+    "source": {
+      "name": "BBC News",
+      "originalTitle": "Scientists 'stunned' by children's lung recovery in ultra low emission zone",
+      "url": "https://www.bbc.co.uk/news/articles/c1l1r1zne1ro",
+      "published": "2026-08-19T00:53:00+01:00"
+    },
+    "paragraphs": [
+      "Young children in London had lungs that were not growing to their full capacity because of air pollution. Then, in 2019, the city introduced an Ultra Low Emission Zone, or Ulez, in central London. Older, more polluting vehicles had to pay a daily charge to enter. A new study says that after pollution fell, children’s lungs improved so quickly that scientists were surprised by the results.",
+      "Researchers followed more than 3,400 primary-school children in London and Luton for five years. The children were six to nine years old when the study began. Each year, they took tests that measured how much air they could force out in one second after a deep breath. Luton provided a comparison because its children had similar social backgrounds, but the town was less polluted than London.",
+      "At first, the London children had lower lung capacity than those in Luton. Four years later, the two groups had reached almost identical levels. In London, the proportion of children with clinically impaired lung capacity fell from 14% to 9%; in Luton, it fell from 9% to 7%. Exposure to nitrogen dioxide also dropped faster in London. The researchers say this suggests that cleaner air helped the children’s lungs catch up.",
+      "The improvement could matter in everyday life: children may be able to run faster without becoming breathless or blow out more candles. Children are especially vulnerable to pollution because their lungs and immune systems are still developing, and they are physically closer to vehicle exhausts. Air pollution can increase the risk of asthma, heart disease and other serious health problems later in life.",
+      "However, the study does not prove that Ulez caused every improvement. Comparing London with Luton helped researchers account for general changes during the Covid-19 pandemic, but more walking or cycling to school and other unmeasured differences between the cities may also have played a part. Ulez has faced political opposition because it affects drivers and businesses. Even so, experts say the findings provide some of the strongest evidence yet for clean-air zones. Pollution in both cities remains above World Health Organization guidelines, so the work is not finished."
+    ],
+    "questionSets": {
+      "easy": [
+        {
+          "label": "Start here",
+          "tense": "Main idea",
+          "prompt": "In your own words, what happens in the text?",
+          "support": "Begin with: “The text explains how…”"
+        },
+        {
+          "label": "Find the facts",
+          "tense": "Past simple",
+          "prompt": "Who did the researchers follow, and which two places did they study?",
+          "support": "Answer with the children’s age group and the names London and Luton."
+        },
+        {
+          "label": "Before the change",
+          "tense": "Past perfect",
+          "prompt": "What had air pollution done to the London children’s lung growth before Ulez was introduced?",
+          "support": "Try: “Pollution had…”"
+        },
+        {
+          "label": "How they tested",
+          "tense": "Past simple",
+          "prompt": "How did the researchers measure the children’s lung function each year?",
+          "support": "Describe the deep breath and the one-second test."
+        },
+        {
+          "label": "Spot the improvement",
+          "tense": "Present perfect",
+          "prompt": "What improvement have researchers found after four years?",
+          "support": "Begin with: “They have found that…”"
+        },
+        {
+          "label": "Understand the risk",
+          "tense": "Present simple",
+          "prompt": "Why are children especially vulnerable to air pollution?",
+          "support": "Give two reasons from the text."
+        },
+        {
+          "label": "Read the numbers",
+          "tense": "Present simple",
+          "prompt": "How did the percentage of London children with impaired lung capacity change?",
+          "support": "Use both 14% and 9% in your answer."
+        },
+        {
+          "label": "Understand the policy",
+          "tense": "Past simple",
+          "prompt": "What did Ulez require older, more polluting vehicles to do?",
+          "support": "Answer in one complete past-tense sentence."
+        },
+        {
+          "label": "Add caution",
+          "tense": "Present perfect",
+          "prompt": "What other influences have independent experts said researchers should consider?",
+          "support": "Mention active travel or unmeasured differences between the cities; explain how the comparison helped with pandemic-era changes."
+        },
+        {
+          "label": "Final message",
+          "tense": "Present + future",
+          "prompt": "Why do the researchers say the work is not finished, and what still needs to improve?",
+          "support": "Explain the pollution level now and what must happen next."
+        }
+      ],
+      "challenge": [
+        {
+          "label": "Explain a change",
+          "tense": "Past perfect + past simple",
+          "prompt": "How had pollution affected the London children before Ulez, and what changed during the study?",
+          "support": "Explain the earlier problem first, then the later improvement."
+        },
+        {
+          "label": "Imagine differently",
+          "tense": "Third conditional",
+          "prompt": "If London had not introduced Ulez, what might have happened to the children’s lung growth?",
+          "support": "Try: “If London had not…, the children might have…”"
+        },
+        {
+          "label": "Interpret evidence",
+          "tense": "Present simple",
+          "prompt": "Why does comparing London with Luton make the study’s evidence stronger?",
+          "support": "Explain what the comparison shows and what it cannot prove."
+        },
+        {
+          "label": "Judge the claim",
+          "tense": "Present simple",
+          "prompt": "Does the study prove that Ulez alone caused the recovery? Give a careful answer using the evidence.",
+          "support": "Use “suggests”, “however” and “may also have”."
+        },
+        {
+          "label": "Make a recommendation",
+          "tense": "Present modals",
+          "prompt": "What should another polluted city do after reading this study?",
+          "support": "Use “should”, “must” or “could”, and explain why."
+        },
+        {
+          "label": "Consider fairness",
+          "tense": "Present + conditional",
+          "prompt": "How should a clean-air policy protect children while also treating low-income drivers and small businesses fairly?",
+          "support": "Try: “The city should… If a driver cannot…, then…”"
+        },
+        {
+          "label": "Connect experience",
+          "tense": "Past + present",
+          "prompt": "Think of a time when a rule changed people’s behaviour. What happened then, and what lesson does it give us now?",
+          "support": "Describe the past example first, then state the present lesson."
+        },
+        {
+          "label": "Change perspective",
+          "tense": "Past + present",
+          "prompt": "Imagine you are a parent in the study. What worried you before, and how do you feel about the results now?",
+          "support": "Move clearly from a past concern to a present reaction."
+        },
+        {
+          "label": "Look ahead",
+          "tense": "Future language",
+          "prompt": "If more cities create effective clean-air zones, what will or might change for children in the future?",
+          "support": "Use both “will” and “might” if you can."
+        },
+        {
+          "label": "Bring it together",
+          "tense": "Past + present + future",
+          "prompt": "Explain what the study found, what city leaders should do now and what healthier air could mean for the next generation.",
+          "support": "Give one past finding, one present recommendation and one future prediction."
+        }
+      ]
+    },
+    "questionTranslations": {
+      "ur": {
+        "easy": [
+          {
+            "prompt": "اپنے الفاظ میں بتائیں کہ اس تحریر میں کیا بیان کیا گیا ہے؟",
+            "support": "اس انگریزی فقرے سے شروع کریں۔",
+            "englishExample": "The text explains how…"
+          },
+          {
+            "prompt": "محققین نے کن بچوں کا مطالعہ کیا، اور انہوں نے کن دو جگہوں کا جائزہ لیا؟",
+            "support": "بچوں کی عمر کے گروہ اور لندن و لوٹن کے نام کے ساتھ جواب دیں۔"
+          },
+          {
+            "prompt": "یولیز متعارف ہونے سے پہلے فضائی آلودگی نے لندن کے بچوں کے پھیپھڑوں کی نشوونما پر کیا اثر ڈالا تھا؟",
+            "support": "اس انگریزی فقرے سے شروع کرنے کی کوشش کریں۔",
+            "englishExample": "Pollution had…"
+          },
+          {
+            "prompt": "محققین نے ہر سال بچوں کے پھیپھڑوں کی کارکردگی کیسے ناپی؟",
+            "support": "گہری سانس اور ایک سیکنڈ والے ٹیسٹ کی وضاحت کریں۔"
+          },
+          {
+            "prompt": "چار سال بعد محققین نے کیا بہتری دیکھی ہے؟",
+            "support": "اس انگریزی فقرے سے شروع کریں۔",
+            "englishExample": "They have found that…"
+          },
+          {
+            "prompt": "بچے فضائی آلودگی سے خاص طور پر زیادہ متاثر کیوں ہوتے ہیں؟",
+            "support": "تحریر میں دی گئی دو وجوہات بتائیں۔"
+          },
+          {
+            "prompt": "لندن میں جن بچوں کے پھیپھڑوں کی گنجائش طبی طور پر متاثر سمجھی گئی، ان کی شرح کس طرح بدلی؟",
+            "support": "اپنے جواب میں 14 فیصد اور 9 فیصد دونوں استعمال کریں۔"
+          },
+          {
+            "prompt": "یولیز کے تحت زیادہ آلودگی پھیلانے والی پرانی گاڑیوں کو کیا کرنا پڑتا تھا؟",
+            "support": "ماضی کے زمانے میں ایک مکمل انگریزی جملے میں جواب دیں۔"
+          },
+          {
+            "prompt": "آزاد ماہرین کے مطابق محققین کو کن دوسرے اثرات کو بھی مدِنظر رکھنا چاہیے؟",
+            "support": "پیدل چلنے یا سائیکل چلانے اور دونوں شہروں کے غیر ناپے گئے فرق کا ذکر کریں؛ یہ بھی بتائیں کہ موازنے نے وبا کے دور کی عمومی تبدیلیوں کو سمجھنے میں کیسے مدد دی۔"
+          },
+          {
+            "prompt": "محققین کیوں کہتے ہیں کہ کام ابھی ختم نہیں ہوا، اور اب بھی کس چیز میں بہتری درکار ہے؟",
+            "support": "آج کی آلودگی کی سطح اور اگلے ضروری قدم کی وضاحت کریں۔"
+          }
+        ],
+        "challenge": [
+          {
+            "prompt": "یولیز سے پہلے آلودگی نے لندن کے بچوں کو کس طرح متاثر کیا تھا، اور تحقیق کے دوران کیا بدلا؟",
+            "support": "پہلے ابتدائی مسئلہ اور پھر بعد کی بہتری بیان کریں۔"
+          },
+          {
+            "prompt": "اگر لندن نے یولیز متعارف نہ کیا ہوتا تو بچوں کے پھیپھڑوں کی نشوونما کا کیا ہو سکتا تھا؟",
+            "support": "اس انگریزی ساخت کو استعمال کرنے کی کوشش کریں۔",
+            "englishExample": "If London had not…, the children might have…"
+          },
+          {
+            "prompt": "لندن کا لوٹن سے موازنہ تحقیق کے شواہد کو زیادہ مضبوط کیوں بناتا ہے؟",
+            "support": "بتائیں کہ موازنہ کیا ظاہر کرتا ہے اور کیا ثابت نہیں کر سکتا۔"
+          },
+          {
+            "prompt": "کیا یہ تحقیق ثابت کرتی ہے کہ صرف یولیز ہی بہتری کا سبب بنا؟ ثبوت کی بنیاد پر محتاط جواب دیں۔",
+            "support": "اپنے انگریزی جواب میں یہ الفاظ اور فقرہ استعمال کریں۔",
+            "englishExample": "suggests · however · may also have"
+          },
+          {
+            "prompt": "اس تحقیق کو پڑھنے کے بعد کسی دوسرے آلودہ شہر کو کیا کرنا چاہیے؟",
+            "support": "ان میں سے کوئی لفظ استعمال کریں اور وجہ بھی بتائیں۔",
+            "englishExample": "should · must · could"
+          },
+          {
+            "prompt": "صاف ہوا کی پالیسی بچوں کی حفاظت کرتے ہوئے کم آمدنی والے ڈرائیوروں اور چھوٹے کاروباروں کے ساتھ منصفانہ برتاؤ کیسے کر سکتی ہے؟",
+            "support": "اس انگریزی ساخت کو استعمال کرنے کی کوشش کریں۔",
+            "englishExample": "The city should… If a driver cannot…, then…"
+          },
+          {
+            "prompt": "کسی ایسے وقت کے بارے میں سوچیں جب کسی اصول نے لوگوں کا رویہ بدلا ہو۔ اس وقت کیا ہوا، اور اس سے آج ہمیں کیا سبق ملتا ہے؟",
+            "support": "پہلے ماضی کی مثال بیان کریں، پھر موجودہ سبق بتائیں۔"
+          },
+          {
+            "prompt": "تصور کریں کہ آپ تحقیق میں شامل بچے کے والدین میں سے ایک ہیں۔ آپ پہلے کس بات سے پریشان تھے، اور اب ان نتائج کے بارے میں آپ کے احساسات کیا ہیں؟",
+            "support": "ماضی کی پریشانی سے موجودہ ردِعمل کی طرف واضح طور پر آئیں۔"
+          },
+          {
+            "prompt": "اگر مزید شہر مؤثر صاف ہوا والے علاقے قائم کریں تو مستقبل میں بچوں کے لیے کیا بدلے گا یا بدل سکتا ہے؟",
+            "support": "اگر ممکن ہو تو اپنے انگریزی جواب میں یہ دونوں الفاظ استعمال کریں۔",
+            "englishExample": "will · might"
+          },
+          {
+            "prompt": "بتائیں کہ تحقیق میں کیا معلوم ہوا، شہر کے رہنماؤں کو اب کیا کرنا چاہیے، اور صاف ہوا اگلی نسل کے لیے کیا معنی رکھ سکتی ہے۔",
+            "support": "ماضی کی ایک دریافت، حال کی ایک تجویز اور مستقبل کی ایک پیش گوئی دیں۔"
+          }
+        ]
+      }
     }
   }
 ]

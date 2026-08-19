@@ -12,6 +12,8 @@ const requiredText = (value, label) => {
 };
 
 assert.ok(Array.isArray(articles) && articles.length > 0, 'At least one article is required');
+const articleIds = articles.map((article) => article.id);
+assert.equal(new Set(articleIds).size, articleIds.length, 'Article IDs must be unique');
 assert.doesNotMatch(indexHtml, /<main[^>]+aria-live=/i, 'The complete reader must not be one oversized live region');
 assert.doesNotMatch(indexHtml, /<(input|textarea|select|form)\b/i, 'The reading page must not contain answer or submission controls');
 assert.doesNotMatch(appJs, /make\(['"](?:input|textarea|select|form)['"]/i, 'The rendered reader must not create answer or submission controls');
@@ -63,6 +65,24 @@ for (const article of articles) {
     });
   }
 
+  assert.ok(article.questionTranslations?.ur, `${article.id}: Urdu question translations are required`);
+  assert.deepEqual(Object.keys(article.questionTranslations.ur).sort(), ['challenge', 'easy'], `${article.id}: Urdu translations must cover Easy and Challenge`);
+  for (const setName of ['easy', 'challenge']) {
+    const translations = article.questionTranslations.ur[setName];
+    assert.ok(Array.isArray(translations), `${article.id}.questionTranslations.ur.${setName}: must be an array`);
+    assert.equal(translations.length, 10, `${article.id}.questionTranslations.ur.${setName}: exactly ten translations are required`);
+    translations.forEach((question, index) => {
+      for (const field of ['prompt', 'support']) {
+        requiredText(question[field], `${article.id}.questionTranslations.ur.${setName}[${index}].${field}`);
+        assert.match(question[field], /[\u0600-\u06ff]/, `${article.id}.questionTranslations.ur.${setName}[${index}].${field}: must contain Urdu script`);
+      }
+      if (question.englishExample !== undefined) {
+        requiredText(question.englishExample, `${article.id}.questionTranslations.ur.${setName}[${index}].englishExample`);
+        assert.doesNotMatch(question.englishExample, /[\u0600-\u06ff]/, `${article.id}.questionTranslations.ur.${setName}[${index}].englishExample: must be isolated English text`);
+      }
+    });
+  }
+
   const allQuestions = [...article.questionSets.easy, ...article.questionSets.challenge];
   const normalizedPrompts = allQuestions.map((question) => question.prompt
     .toLowerCase()
@@ -98,4 +118,4 @@ for (const article of articles) {
   assert.equal(article.source.published.slice(0, 10), article.date, `${article.id}: article date must match the credited source publication date`);
 }
 
-console.log(`Validated ${articles.length} article(s): schema, dates, 300–500 word length, ten Easy plus ten Challenge questions, prompt-level tense coverage, BBC attribution and no-scoring UI contract all pass.`);
+console.log(`Validated ${articles.length} article(s): schema, dates, 300–500 word length, ten Easy plus ten Challenge questions with Urdu help, prompt-level tense coverage, BBC attribution and no-scoring UI contract all pass.`);

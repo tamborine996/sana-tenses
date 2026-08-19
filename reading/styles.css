@@ -579,6 +579,36 @@ h2 {
   line-height: 1.5;
 }
 
+.question-translation {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(84, 100, 95, 0.14);
+  font-family: "Noto Nastaliq Urdu", "Noto Naskh Arabic", serif;
+  text-align: right;
+}
+
+.question-text-urdu {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.13rem;
+  line-height: 2;
+}
+
+.question-support-urdu {
+  margin: 6px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.96rem;
+  line-height: 1.95;
+}
+
+.question-example {
+  margin: 8px 0 0;
+  color: var(--green);
+  direction: ltr;
+  font: 600 0.82rem/1.45 var(--sans);
+  text-align: left;
+}
+
 .closing-note {
   margin: 26px 0 0;
   padding: 18px;
@@ -741,6 +771,10 @@ h2 {
 
   .question-item::before {
     left: 15px;
+  }
+
+  .question-translation {
+    margin-left: -40px;
   }
 }
 
