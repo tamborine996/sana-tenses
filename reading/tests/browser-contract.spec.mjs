@@ -61,8 +61,26 @@ test('native text selection offers optional Save and Remove actions without chan
 
   await expect(page.locator('.article-body').first()).toHaveCSS('user-select', 'auto');
   await selectText(page, '#en-story .article-body p', 'touching or riding a wild shark');
+  await page.evaluate(() => {
+    const range = window.getSelection().getRangeAt(0);
+    window.scrollBy(0, range.getBoundingClientRect().bottom - (window.innerHeight - 18));
+    document.dispatchEvent(new Event('selectionchange'));
+  });
   await expect(page.locator('.highlight-action')).toBeVisible();
   await expect(page.locator('.highlight-action__button')).toHaveText('Save highlight');
+  const selectionGeometry = await page.evaluate(() => {
+    const selectionRect = window.getSelection().getRangeAt(0).getBoundingClientRect();
+    const actionRect = document.querySelector('.highlight-action').getBoundingClientRect();
+    return {
+      overlaps: selectionRect.left < actionRect.right
+        && selectionRect.right > actionRect.left
+        && selectionRect.top < actionRect.bottom
+        && selectionRect.bottom > actionRect.top,
+      actionTop: actionRect.top,
+      selectionBottom: selectionRect.bottom
+    };
+  });
+  expect(selectionGeometry.overlaps, JSON.stringify(selectionGeometry)).toBe(false);
   await page.waitForTimeout(750);
   await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('sana-reading:highlights:v1') || '[]').length)).toBe(0);
   await expect.poll(() => page.evaluate(() => window.getSelection().toString())).toBe('touching or riding a wild shark');

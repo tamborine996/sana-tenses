@@ -708,6 +708,11 @@ mark.saved-highlight:focus {
   display: none;
 }
 
+.highlight-action[data-position="top"] {
+  top: max(14px, env(safe-area-inset-top));
+  bottom: auto;
+}
+
 .highlight-action__text {
   min-width: 0;
   flex: 1;

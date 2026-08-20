@@ -177,6 +177,19 @@
       this.actionButton.textContent = match ? 'Remove highlight' : 'Save highlight';
       this.action.dataset.mode = match ? 'remove' : 'save';
       this.action.hidden = false;
+      this.positionAction();
+    }
+
+    positionAction() {
+      const selection = window.getSelection();
+      if (!selection || selection.isCollapsed || selection.rangeCount === 0) return;
+      const selectionRect = selection.getRangeAt(0).getBoundingClientRect();
+      const lowerTrayTop = window.innerHeight - 84;
+      if (selectionRect.bottom > lowerTrayTop) {
+        this.action.dataset.position = 'top';
+      } else {
+        delete this.action.dataset.position;
+      }
     }
 
     hideAction() {
@@ -201,6 +214,7 @@
     }
 
     refresh() {
+      if (this.actionDetails) this.positionAction();
       this.root.querySelectorAll('[data-highlight-paragraph]').forEach((paragraph) => {
         if (!this.sourceText.has(paragraph)) this.sourceText.set(paragraph, paragraph.textContent);
       });
