@@ -34,6 +34,9 @@ test('chapter reader keeps a single linear path and saves progress', async ({ pa
 
   await page.evaluate(() => localStorage.removeItem('sana-reading:highlights:v1'));
   await selectText(page, 'great Kansas prairies');
+  await expect(page.locator('.highlight-action__button')).toHaveText('Save highlight');
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('sana-reading:highlights:v1') || '[]').length)).toBe(0);
+  await page.locator('.highlight-action__button').click();
   await expect(page.locator('.highlight-toast')).toContainText('Highlight saved');
   await page.evaluate(() => {
     window.getSelection().removeAllRanges();
@@ -63,4 +66,11 @@ test('chapter reader keeps a single linear path and saves progress', async ({ pa
   }));
   expect(dimensions.scrollWidth).toBe(dimensions.clientWidth);
   expect(browserErrors).toEqual([]);
+
+  await expect(page.locator('.topbar-label')).toHaveText('Saved words');
+  await expect(page.locator('.topbar-label')).toHaveAttribute('href', '../../#saved-words');
+  await page.locator('.topbar-label').click();
+  await expect(page).toHaveURL(/\/reading\/#saved-words$/);
+  await expect(page.locator('#highlights-panel')).toBeVisible();
+  await expect(page.locator('#highlights-heading')).toHaveText('Your saved words and phrases');
 });

@@ -8,13 +8,15 @@ A phone-first, tutor-led reading routine inside the existing Sana Tenses GitHub 
 - `/reading/?article=<article-id>#reader` — a stable link to any short article on the shelf.
 - `/reading/books/wizard-of-oz/` — the complete public-domain *Wonderful Wizard of Oz*, one chapter at a time, with saved progress and original W. W. Denslow chapter art.
 
-## Saved highlights
+## Saved words and highlights
 
 - Native browser text selection remains in charge: the readers do not replace long-press handles, Copy, Translate or the context menu.
-- Selecting one word or a short phrase inside an article or book paragraph saves it automatically after the selection settles.
+- Selecting one word or a short phrase does not save it automatically. A quiet contextual action offers `Save highlight` after the selection settles.
+- Selecting the same saved range offers `Remove highlight`, so a word can be un-highlighted in place.
 - The original selection stays intact while browser actions are available. The persistent marker is painted only after the native selection is dismissed.
-- A small `Highlight saved · Undo` confirmation makes accidental selections reversible.
-- The library’s quiet `Highlights · <count>` control opens a review list with sentence context and a link back to the exact article or chapter passage.
+- A small `Highlight saved · Undo` confirmation makes an intentional save reversible.
+- The library’s `Saved words · <count>` control opens an informal word bank with sentence context and a link back to the exact article or chapter passage.
+- The Wizard reader links directly back to this Saved words collection.
 - Highlights are stored in `localStorage` under `sana-reading:highlights:v1`, so they remain private to the current browser and device.
 
 ## Short-article product contract

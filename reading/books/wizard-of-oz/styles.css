@@ -253,6 +253,56 @@ mark.saved-highlight:focus {
   outline-offset: 3px;
 }
 
+.highlight-action {
+  position: fixed;
+  z-index: 19;
+  right: 50%;
+  bottom: max(14px, env(safe-area-inset-bottom));
+  display: flex;
+  width: min(calc(100% - 24px), 460px);
+  min-height: 56px;
+  padding: 7px 7px 7px 16px;
+  transform: translateX(50%);
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(32, 45, 41, 0.16);
+  border-radius: 18px;
+  color: var(--ink);
+  background: rgba(255, 250, 240, 0.98);
+  box-shadow: 0 14px 34px rgba(32, 45, 41, 0.22);
+  font-family: var(--sans);
+}
+
+.highlight-action[hidden] { display: none; }
+
+.highlight-action__text {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  color: var(--ink-soft);
+  font-size: 0.79rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.highlight-action__button {
+  min-height: 42px;
+  padding: 10px 15px;
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 13px;
+  color: white;
+  background: var(--emerald);
+  font: 700 0.8rem/1.2 var(--sans);
+  cursor: pointer;
+}
+
+.highlight-action[data-mode="remove"] .highlight-action__button {
+  color: #7c2f27;
+  background: #f8d8ce;
+}
+
 .highlight-toast {
   position: fixed;
   z-index: 20;
@@ -355,7 +405,13 @@ mark.saved-highlight:focus {
 
 @media (max-width: 600px) {
   .book-topbar { width: calc(100% - 28px); padding-top: 14px; }
-  .topbar-label { display: none; }
+  .topbar-label {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-style: normal;
+    font-weight: 700;
+    text-decoration: none;
+  }
   .book-shell { width: 100%; gap: 12px; }
   .book-masthead,
   .progress-card,

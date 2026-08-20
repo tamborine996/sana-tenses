@@ -44,6 +44,7 @@ function makeLibraryCard({ id, href, type, meta, title, description, action, isC
 function makeHighlightsArea() {
   const toggle = make('button', 'highlights-toggle');
   toggle.type = 'button';
+  toggle.id = 'saved-words';
   toggle.setAttribute('aria-controls', 'highlights-panel');
   toggle.setAttribute('aria-expanded', 'false');
 
@@ -54,21 +55,21 @@ function makeHighlightsArea() {
 
   function render() {
     const highlights = window.SanaHighlights?.getAll() || [];
-    toggle.textContent = `Highlights · ${highlights.length}`;
+    toggle.textContent = `Saved words · ${highlights.length}`;
     panel.replaceChildren();
 
     const header = make('header', 'highlights-panel__header');
-    const heading = make('h2', '', 'Your highlights');
+    const heading = make('h2', '', 'Your saved words and phrases');
     heading.id = 'highlights-heading';
     heading.tabIndex = -1;
     header.append(
       heading,
-      make('p', '', 'Select a word or short phrase while reading. It saves automatically and the browser’s Translate and Copy tools still work.')
+      make('p', '', 'Select text while reading, then choose Save highlight. Copy and Translate still work normally.')
     );
     panel.appendChild(header);
 
     if (highlights.length === 0) {
-      panel.appendChild(make('p', 'highlights-empty', 'Nothing saved yet. Your first highlight will appear here.'));
+      panel.appendChild(make('p', 'highlights-empty', 'Nothing saved yet. Words and short phrases you choose to save will appear here.'));
       return;
     }
 
@@ -109,6 +110,11 @@ function makeHighlightsArea() {
   });
   window.addEventListener('sana:highlights-changed', render);
   render();
+  if (window.location.hash === '#saved-words') {
+    panel.hidden = false;
+    toggle.setAttribute('aria-expanded', 'true');
+    requestAnimationFrame(() => panel.querySelector('h2')?.focus({ preventScroll: true }));
+  }
   return { toggle, panel };
 }
 
@@ -285,7 +291,7 @@ function renderArticle(article) {
   const languageCopy = make('div', 'language-copy');
   languageCopy.append(
     make('p', 'language-label', 'Story language'),
-    make('p', 'language-help', 'Select a word or phrase to save it. Questions include Urdu help.')
+    make('p', 'language-help', 'Select text, then choose Save highlight. Questions include Urdu help.')
   );
   const languageTabs = make('div', 'language-switch');
   languageTabs.setAttribute('role', 'tablist');

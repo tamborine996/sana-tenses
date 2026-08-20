@@ -23,6 +23,7 @@ export default defineConfig({
   projects: [
     { name: 'phone-320', use: { viewport: { width: 320, height: 700 } } },
     { name: 'phone-360', use: { viewport: { width: 360, height: 780 } } },
-    { name: 'phone-412', use: { viewport: { width: 412, height: 915 } } }
+    { name: 'phone-412', use: { viewport: { width: 412, height: 915 } } },
+    { name: 'tablet-768', use: { viewport: { width: 768, height: 1024 } } }
   ]
 });

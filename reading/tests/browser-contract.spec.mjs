@@ -54,15 +54,17 @@ test('the reading library exposes every article and the chapter book', async ({ 
   expect(dimensions.scrollWidth).toBe(dimensions.clientWidth);
 });
 
-test('native text selection saves a revisitable highlight without changing the reader', async ({ page }) => {
+test('native text selection offers optional Save and Remove actions without changing the reader', async ({ page }) => {
   await page.goto('/reading/?article=2026-08-16-shark-photographs#reader');
   await page.evaluate(() => localStorage.removeItem('sana-reading:highlights:v1'));
   await page.reload();
 
   await expect(page.locator('.article-body').first()).toHaveCSS('user-select', 'auto');
   await selectText(page, '#en-story .article-body p', 'touching or riding a wild shark');
-  await expect(page.locator('.highlight-toast')).toContainText('Highlight saved');
-  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('sana-reading:highlights:v1') || '[]').length)).toBe(1);
+  await expect(page.locator('.highlight-action')).toBeVisible();
+  await expect(page.locator('.highlight-action__button')).toHaveText('Save highlight');
+  await page.waitForTimeout(750);
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('sana-reading:highlights:v1') || '[]').length)).toBe(0);
   await expect.poll(() => page.evaluate(() => window.getSelection().toString())).toBe('touching or riding a wild shark');
   expect(await page.evaluate(() => {
     const paragraph = document.querySelector('#en-story .article-body p');
@@ -71,12 +73,17 @@ test('native text selection saves a revisitable highlight without changing the r
     return event.defaultPrevented;
   })).toBe(false);
 
+  await page.locator('.highlight-action__button').click();
+  await expect(page.locator('.highlight-toast')).toContainText('Highlight saved');
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('sana-reading:highlights:v1') || '[]').length)).toBe(1);
+
   await clearSelection(page);
   await expect(page.locator('#en-story mark.saved-highlight')).toHaveText('touching or riding a wild shark');
-  await expect(page.locator('.highlights-toggle')).toContainText('Highlights · 1');
+  await expect(page.locator('.highlights-toggle')).toContainText('Saved words · 1');
 
   await page.locator('.highlights-toggle').click();
   await expect(page.locator('#highlights-panel')).toBeVisible();
+  await expect(page.locator('#highlights-heading')).toHaveText('Your saved words and phrases');
   await expect(page.locator('.highlight-review-item')).toContainText('touching or riding a wild shark');
   await expect(page.locator('.highlight-review-item')).toContainText('The danger behind the perfect shark picture');
 
@@ -86,6 +93,14 @@ test('native text selection saves a revisitable highlight without changing the r
 
   await page.reload();
   await expect(page.locator('#en-story mark.saved-highlight')).toHaveText('touching or riding a wild shark');
+
+  await selectText(page, '#en-story .article-body p', 'touching or riding a wild shark');
+  await expect(page.locator('.highlight-action__button')).toHaveText('Remove highlight');
+  await page.locator('.highlight-action__button').click();
+  await expect(page.locator('.highlight-toast')).toContainText('Highlight removed');
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('sana-reading:highlights:v1') || '[]').length)).toBe(0);
+  await clearSelection(page);
+  await expect(page.locator('#en-story mark.saved-highlight')).toHaveCount(0);
 });
 
 test('a quick selection is not lost and malformed saved data cannot break the reader', async ({ page }) => {
@@ -95,7 +110,7 @@ test('a quick selection is not lost and malformed saved data cannot break the re
   ])));
   await page.reload();
   await expect(page.locator('.reading-card')).toBeVisible();
-  await expect(page.locator('.highlights-toggle')).toContainText('Highlights · 0');
+  await expect(page.locator('.highlights-toggle')).toContainText('Saved words · 0');
 
   await page.evaluate(() => localStorage.removeItem('sana-reading:highlights:v1'));
   await page.goto('/reading/?article=2026-08-16-shark-photographs#reader');
@@ -109,11 +124,13 @@ test('a quick selection is not lost and malformed saved data cannot break the re
     document.dispatchEvent(new Event('selectionchange'));
   });
 
-  await expect(page.locator('.highlight-toast')).toContainText('Highlight saved');
-  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('sana-reading:highlights:v1') || '[]').length)).toBe(1);
+  await expect(page.locator('.highlight-action__button')).toHaveText('Save highlight');
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('sana-reading:highlights:v1') || '[]').length)).toBe(0);
   await expect.poll(() => page.evaluate(() => getSelection()?.toString())).toBe('touching or riding a wild shark');
   await page.waitForTimeout(700);
   await expect.poll(() => page.evaluate(() => getSelection()?.toString())).toBe('touching or riding a wild shark');
+  await page.locator('.highlight-action__button').click();
+  await expect(page.locator('.highlight-toast')).toContainText('Highlight saved');
   await clearSelection(page);
   await expect(page.locator('#en-story mark.saved-highlight')).toHaveText('touching or riding a wild shark');
 });

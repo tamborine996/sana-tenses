@@ -132,6 +132,12 @@
       && Number(left.paragraphIndex) === Number(right.paragraphIndex);
   }
 
+  function exactMatchFor(items, details) {
+    return items.find((item) => sameLocation(item, details)
+      && item.start === details.start
+      && item.end === details.end);
+  }
+
   class HighlightController {
     constructor(root, options) {
       this.root = root;
@@ -141,11 +147,57 @@
       this.pendingDetails = null;
       this.activeHighlightId = null;
       this.selectionWasActive = false;
+      this.actionDetails = null;
+      this.action = document.createElement('div');
+      this.action.className = 'highlight-action';
+      this.action.hidden = true;
+      this.action.setAttribute('role', 'group');
+      this.action.setAttribute('aria-label', 'Selected text actions');
+      this.actionText = document.createElement('span');
+      this.actionText.className = 'highlight-action__text';
+      this.actionButton = document.createElement('button');
+      this.actionButton.type = 'button';
+      this.actionButton.className = 'highlight-action__button';
+      this.actionButton.addEventListener('pointerdown', (event) => event.preventDefault());
+      this.actionButton.addEventListener('click', () => this.commitAction());
+      this.action.append(this.actionText, this.actionButton);
+      document.body.appendChild(this.action);
       this.handleSelectionChange = this.handleSelectionChange.bind(this);
       this.handleStoredChange = this.handleStoredChange.bind(this);
       document.addEventListener('selectionchange', this.handleSelectionChange);
       window.addEventListener(CHANGE_EVENT, this.handleStoredChange);
       this.refresh();
+    }
+
+    showAction(details) {
+      const match = exactMatchFor(getAll(), details);
+      this.actionDetails = details;
+      this.activeHighlightId = match?.id || null;
+      this.actionText.textContent = `“${details.text.length > 54 ? `${details.text.slice(0, 51)}…` : details.text}”`;
+      this.actionButton.textContent = match ? 'Remove highlight' : 'Save highlight';
+      this.action.dataset.mode = match ? 'remove' : 'save';
+      this.action.hidden = false;
+    }
+
+    hideAction() {
+      this.action.hidden = true;
+      this.actionDetails = null;
+    }
+
+    commitAction() {
+      const details = this.actionDetails;
+      if (!details) return;
+      const match = exactMatchFor(getAll(), details);
+      if (match) {
+        if (remove(match.id)) {
+          this.activeHighlightId = null;
+          this.hideAction();
+          showToast(null, 'Highlight removed');
+        }
+        return;
+      }
+      this.save(details);
+      this.hideAction();
     }
 
     refresh() {
@@ -206,11 +258,12 @@
           if (startsInside || endsInside) {
             this.selectionWasActive = true;
             this.pendingDetails = null;
+            this.hideAction();
           } else if (this.selectionWasActive) {
-            if (this.pendingDetails) this.save(this.pendingDetails);
             this.pendingDetails = null;
             this.selectionWasActive = false;
             this.activeHighlightId = null;
+            this.hideAction();
             this.paintAll();
           }
           return;
@@ -219,17 +272,18 @@
         this.selectionWasActive = true;
         this.pendingDetails = details;
         this.saveTimer = window.setTimeout(() => {
-          this.save(details);
-          if (this.pendingDetails === details) this.pendingDetails = null;
-        }, 650);
+          if (this.pendingDetails === details && window.getSelection()?.isCollapsed === false) {
+            this.showAction(details);
+          }
+        }, 450);
         return;
       }
 
       if (this.selectionWasActive) {
-        if (this.pendingDetails) this.save(this.pendingDetails);
         this.pendingDetails = null;
         this.selectionWasActive = false;
         this.activeHighlightId = null;
+        this.hideAction();
         window.setTimeout(() => {
           if (window.getSelection()?.isCollapsed !== false) this.paintAll();
         }, 0);
@@ -238,12 +292,10 @@
 
     save(details) {
       const items = getAll();
-      const exactMatch = items.find((item) => sameLocation(item, details)
-        && item.start === details.start
-        && item.end === details.end);
+      const exactMatch = exactMatchFor(items, details);
       if (exactMatch) {
         this.activeHighlightId = exactMatch.id;
-        showToast(null, 'Already highlighted');
+        this.showAction(details);
         return;
       }
 
