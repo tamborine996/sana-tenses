@@ -222,6 +222,10 @@
     }
 
     handleStoredChange() {
+      if (this.actionDetails) {
+        this.showAction(this.actionDetails);
+        return;
+      }
       if (!this.selectionWasActive && window.getSelection()?.isCollapsed !== false) this.paintAll();
     }
 

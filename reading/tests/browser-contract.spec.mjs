@@ -153,6 +153,26 @@ test('a quick selection is not lost and malformed saved data cannot break the re
   await expect(page.locator('#en-story mark.saved-highlight')).toHaveText('touching or riding a wild shark');
 });
 
+test('the pending action stays accurate when another tab changes the same saved range', async ({ page, context }, testInfo) => {
+  test.skip(testInfo.project.name !== 'phone-360', 'One shared-storage contract is sufficient.');
+  const otherPage = await context.newPage();
+  const path = '/reading/?article=2026-08-16-shark-photographs#reader';
+  await page.goto(path);
+  await page.evaluate(() => localStorage.removeItem('sana-reading:highlights:v1'));
+  await otherPage.goto(path);
+
+  await selectText(page, '#en-story .article-body p', 'touching or riding a wild shark');
+  await selectText(otherPage, '#en-story .article-body p', 'touching or riding a wild shark');
+  await expect(page.locator('.highlight-action__button')).toHaveText('Save highlight');
+  await expect(otherPage.locator('.highlight-action__button')).toHaveText('Save highlight');
+
+  await page.locator('.highlight-action__button').click();
+  await expect(otherPage.locator('.highlight-action__button')).toHaveText('Remove highlight');
+  await otherPage.locator('.highlight-action__button').click();
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('sana-reading:highlights:v1') || '[]').length)).toBe(0);
+  await otherPage.close();
+});
+
 test('Easy and Challenge panels remain keyboard-reachable', async ({ page }) => {
   const browserErrors = [];
   page.on('console', (message) => {
